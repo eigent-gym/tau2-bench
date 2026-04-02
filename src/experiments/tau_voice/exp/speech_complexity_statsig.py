@@ -562,6 +562,112 @@ def compute_pairwise_statsig(
                         )
                     )
 
+    # 3) All-domains-combined voice pairwise: pool across domains,
+    #    but only for (provider, complexity) combos present in every domain.
+    all_domains = sorted(df_raw["domain"].unique())
+    if len(all_domains) > 1:
+        for provider in voice_providers:
+            prov_raw = df_raw[df_raw["provider"] == provider]
+            prov_task = df_task[df_task["provider"] == provider]
+            domains_for_prov = set(prov_raw["domain"].unique())
+
+            # Only keep complexities that appear in every domain for this provider
+            complexities_per_domain = (
+                prov_raw.groupby("domain")["speech_complexity"].apply(set).to_dict()
+            )
+            shared_complexities = set.intersection(*complexities_per_domain.values())
+            shared_complexities = sorted(
+                shared_complexities,
+                key=lambda c: COMPLEXITY_ORDER.index(c)
+                if c in COMPLEXITY_ORDER
+                else 99,
+            )
+
+            if len(shared_complexities) < 2 or len(domains_for_prov) < len(all_domains):
+                continue
+
+            # Use (domain, task_id) as composite pairing key
+            prov_task = prov_task.copy()
+            prov_task["domain_task"] = (
+                prov_task["domain"].astype(str) + ":" + prov_task["task_id"].astype(str)
+            )
+
+            for cond_a, cond_b in combinations(shared_complexities, 2):
+                raw_a = prov_raw[prov_raw["speech_complexity"] == cond_a]
+                raw_b = prov_raw[prov_raw["speech_complexity"] == cond_b]
+                task_a = prov_task[prov_task["speech_complexity"] == cond_a].set_index(
+                    "domain_task"
+                )["mean_success"]
+                task_b = prov_task[prov_task["speech_complexity"] == cond_b].set_index(
+                    "domain_task"
+                )["mean_success"]
+
+                rows.append(
+                    _compute_one_comparison(
+                        cond_a,
+                        cond_b,
+                        raw_a,
+                        raw_b,
+                        task_a,
+                        task_b,
+                        "all",
+                        provider,
+                        "voice_pairwise",
+                    )
+                )
+
+        # 4) All-domains-combined text vs voice
+        text_raw_all = df_raw[df_raw["provider"] == "text"]
+        text_task_all = df_task[df_task["provider"] == "text"]
+        if not text_raw_all.empty:
+            text_task_all = text_task_all.copy()
+            text_task_all["domain_task"] = (
+                text_task_all["domain"].astype(str)
+                + ":"
+                + text_task_all["task_id"].astype(str)
+            )
+
+            for text_cond in text_conditions:
+                t_raw = text_raw_all[text_raw_all["speech_complexity"] == text_cond]
+                if t_raw.empty or set(t_raw["domain"].unique()) != set(all_domains):
+                    continue
+                t_task = text_task_all[
+                    text_task_all["speech_complexity"] == text_cond
+                ].set_index("domain_task")["mean_success"]
+
+                for provider in voice_providers:
+                    prov_raw = df_raw[df_raw["provider"] == provider]
+                    prov_task = df_task[df_task["provider"] == provider].copy()
+                    prov_task["domain_task"] = (
+                        prov_task["domain"].astype(str)
+                        + ":"
+                        + prov_task["task_id"].astype(str)
+                    )
+
+                    for voice_cond in voice_conditions:
+                        v_raw = prov_raw[prov_raw["speech_complexity"] == voice_cond]
+                        if v_raw.empty or set(v_raw["domain"].unique()) != set(
+                            all_domains
+                        ):
+                            continue
+                        v_task = prov_task[
+                            prov_task["speech_complexity"] == voice_cond
+                        ].set_index("domain_task")["mean_success"]
+
+                        rows.append(
+                            _compute_one_comparison(
+                                text_cond,
+                                voice_cond,
+                                t_raw,
+                                v_raw,
+                                t_task,
+                                v_task,
+                                "all",
+                                provider,
+                                "text_vs_voice",
+                            )
+                        )
+
     result = pd.DataFrame(rows)
     if result.empty:
         return result
@@ -757,6 +863,105 @@ def write_markdown_report(comparisons: pd.DataFrame, output_dir: Path) -> None:
     print(f"Saved markdown report: {md_path}")
 
 
+# -- Headline comparisons: text vs voice + clean vs realistic ----------------
+
+HEADLINE_COMPARISONS = [
+    ("Text (NR) → Clean", "text_non_reasoning", "control"),
+    ("Text (NR) → Realistic", "text_non_reasoning", "regular"),
+    ("Text (R) → Clean", "text_reasoning", "control"),
+    ("Text (R) → Realistic", "text_reasoning", "regular"),
+    ("Clean → Realistic", "control", "regular"),
+]
+
+
+def _find_comparison_row(
+    comparisons: pd.DataFrame,
+    domain: str,
+    provider: str,
+    cond_a: str,
+    cond_b: str,
+) -> Optional[pd.Series]:
+    """Look up a single comparison row, checking both comparison_type columns."""
+    for comp_type in ("text_vs_voice", "voice_pairwise"):
+        mask = (
+            (comparisons["domain"] == domain)
+            & (comparisons["provider"] == provider)
+            & (comparisons["comparison_type"] == comp_type)
+            & (comparisons["condition_a"] == cond_a)
+            & (comparisons["condition_b"] == cond_b)
+        )
+        rows = comparisons[mask]
+        if not rows.empty:
+            return rows.iloc[0]
+    return None
+
+
+def write_text_vs_voice_report(
+    comparisons: pd.DataFrame,
+    output_dir: Path,
+) -> None:
+    """Write a focused text-vs-voice markdown report.
+
+    Format: per-domain tables with rows grouped by headline comparison
+    (Text→Clean, Clean→Realistic), provider breakdown within each group.
+    Includes an "All Domains" section when domain="all" rows exist.
+    """
+    lines: list[str] = []
+    lines.append("# Pairwise Statistical Significance — All Domains\n")
+
+    # Collect domains in display order: real domains first, then "all"
+    all_domain_vals = sorted(comparisons["domain"].unique())
+    real_domains = [d for d in all_domain_vals if d != "all"]
+    domains_ordered = real_domains + (["all"] if "all" in all_domain_vals else [])
+
+    voice_providers = sorted(p for p in comparisons["provider"].unique() if p != "text")
+
+    for domain in domains_ordered:
+        domain_label = (
+            "All Domains (Combined)" if domain == "all" else domain.capitalize()
+        )
+        lines.append(f"## {domain_label}\n")
+        lines.append(
+            "| Comparison | Provider | Rate A | Rate B | ∆ (pp) | p (adj) | Sig |"
+        )
+        lines.append("|---|---|---:|---:|---:|---:|:---:|")
+
+        for comp_label, cond_a, cond_b in HEADLINE_COMPARISONS:
+            first_in_group = True
+            for provider in voice_providers:
+                row = _find_comparison_row(
+                    comparisons, domain, provider, cond_a, cond_b
+                )
+                if row is None:
+                    continue
+
+                label_cell = comp_label if first_in_group else ""
+                first_in_group = False
+                prov_display = provider.capitalize()
+                sig = "\\*" if row["permutation_sig"] else ""
+                p_str = (
+                    "<0.001"
+                    if row["permutation_p_adj"] < 0.001
+                    else f"{row['permutation_p_adj']:.3f}"
+                )
+
+                lines.append(
+                    f"| {label_cell} | {prov_display} "
+                    f"| {row['rate_a'] * 100:.1f}% "
+                    f"| {row['rate_b'] * 100:.1f}% "
+                    f"| {row['delta_pp']:+.1f} "
+                    f"| {p_str} "
+                    f"| {sig} |"
+                )
+
+        lines.append("")
+
+    md_path = output_dir / "pairwise_statsig_all_domains.md"
+    with open(md_path, "w") as f:
+        f.write("\n".join(lines))
+    print(f"Saved text-vs-voice report: {md_path}")
+
+
 # =============================================================================
 # Main
 # =============================================================================
@@ -875,6 +1080,7 @@ def main():
 
     print_report(comparisons)
     write_markdown_report(comparisons, output_dir)
+    write_text_vs_voice_report(comparisons, output_dir)
 
     # Summary
     sig_perm = comparisons[comparisons["permutation_sig"]]
