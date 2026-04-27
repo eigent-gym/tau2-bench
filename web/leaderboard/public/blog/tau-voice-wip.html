@@ -569,7 +569,7 @@
 
       <ul>
         <li><strong>Verifiable, grounded tasks &mdash; shared with the text benchmark.</strong> 278 customer-service tasks inherited from τ-bench, scored deterministically against the final database state. The tasks, the tools, the policy documents, and the evaluator are <em>byte-for-byte identical</em> to those used by half-duplex text agents on the τ-bench leaderboard. That means the voice numbers in this post can be compared directly against a text agent on the same task &mdash; <strong>full-duplex voice vs.&nbsp;half-duplex text, no apples-to-oranges caveat</strong>.</li>
-        <li><strong>Full-duplex interaction.</strong> Both the user and the agent can speak simultaneously. A tick-based orchestrator coordinates 200&nbsp;ms audio chunks in both directions, lets the agent be interrupted mid-sentence, and reproduces the same audio stream every run.</li>
+        <li><strong>Full-duplex interaction.</strong> Both the user and the agent can speak simultaneously. A tick-based orchestrator coordinates 200&nbsp;ms audio chunks in both directions, lets the agent be interrupted mid-sentence, and gives us precise, repeatable control over turn-taking timing.</li>
         <li><strong>Realistic, controllable audio.</strong> A voice user simulator that synthesises caller speech with diverse personas, mixes in environmental noise, applies telephony compression, drops frames, and decides &mdash; turn by turn &mdash; whether to interrupt, yield, or backchannel.</li>
       </ul>
 
@@ -1140,6 +1140,8 @@
       <h2>Open, reproducible, and yours to build on</h2>
 
       <p>τ-voice is part of the broader <a href="https://github.com/sierra-research/tau2-bench">τ-bench</a> framework. Tasks, environment, voice user simulator, audio effects, turn-taking policy, and evaluation are all open source. Every result here is reproducible from a fixed seed (LLM stochasticity aside), every audio sample on the <a href="/blog/tau-voice-examples.html">examples page</a> comes from a real τ-voice run, and every voice submission on the leaderboard ships with its trajectories so you can replay the conversations end-to-end.</p>
+
+      <p>The official voice personas are held out, but a <a href="https://github.com/sierra-research/tau2-bench/blob/main/docs/voice-personas.md">one-command script</a> generates equivalent ones via the same ElevenLabs Voice Design API, so external developers can iterate locally and expect improvements to carry over to the official eval.</p>
 
       <p>If you train voice models, evaluate voice agents, or just want to understand where today's systems break down, we'd love your contributions &mdash; new audio-native providers, cascaded ASR&rarr;LLM&rarr;TTS baselines, and pull requests against the user simulator are all welcome. Voice agents will be in production whether or not we measure them carefully. <strong>We'd rather measure them carefully.</strong></p>
 
