@@ -130,6 +130,26 @@
       border-radius: 0 8px 8px 0;
     }
     .story-callout strong { font-style: normal; }
+    .story-callout .callout-lead { margin: 0 0 12px; }
+    .story-callout .callout-steps {
+      list-style: none; margin: 0; padding: 0;
+      display: flex; flex-direction: column; gap: 8px;
+      counter-reset: callout-step;
+    }
+    .story-callout .callout-steps li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-style: normal; color: #1a202c; font-weight: 500;
+      line-height: 1.55;
+    }
+    .story-callout .callout-step-num {
+      flex: 0 0 22px; height: 22px; border-radius: 50%;
+      background: #e2e8f0; color: #4a5568;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 11.5px; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .story-callout .callout-step-text { flex: 1; }
 
     /* Demo block (matches example pages) */
     .demo-block {
@@ -525,7 +545,12 @@
       <p>The risk is that we ship voice agents that hold a charming conversation while quietly failing the underlying task &mdash; or, conversely, agents that nail the task in writing but fall apart the moment a real caller starts talking over them.</p>
 
       <div class="story-callout">
-        A customer calls to make changes to their account. Background noise from a busy street and an unfamiliar accent push the speech recogniser off, and authentication fails. <strong>Does the agent ask them to spell their name? If they spell it, does the agent transcribe it correctly? If so, does it actually fix the failed authentication call &mdash; or does it lose track of the corrections spread across three turns?</strong>
+        <p class="callout-lead">A customer calls to make changes to their account. Background noise from a busy street and an unfamiliar accent push the speech recogniser off, and authentication fails.</p>
+        <ol class="callout-steps">
+          <li><span class="callout-step-num">1</span><span class="callout-step-text">Does the agent ask them to spell their name?</span></li>
+          <li><span class="callout-step-num">2</span><span class="callout-step-text">If they spell it, does the agent transcribe it correctly?</span></li>
+          <li><span class="callout-step-num">3</span><span class="callout-step-text">If so, does it actually fix the failed authentication call &mdash; or does it lose track of the corrections spread across three turns?</span></li>
+        </ol>
       </div>
 
       <p>None of the standard benchmarks would catch a failure like this, because each step looks fine in isolation. Measuring both dimensions together &mdash; task completion <em>and</em> conversational dynamics, on the same call, under realistic audio &mdash; is what lets us see these integrated failures, quantify how much of an agent's text capability survives the move to voice, and surface regressions for the people most affected: speakers with non-standard accents, callers from noisy environments, users on degraded connections. <strong>Robustness to realistic audio conditions is an accessibility issue.</strong></p>
