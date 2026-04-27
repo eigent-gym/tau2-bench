@@ -568,7 +568,7 @@
         <li><strong>Realistic, controllable audio.</strong> A voice user simulator that synthesises caller speech with diverse personas, mixes in environmental noise, applies telephony compression, drops frames, and decides &mdash; turn by turn &mdash; whether to interrupt, yield, or backchannel.</li>
       </ul>
 
-      <p>One implementation note worth flagging: the major voice provider APIs (OpenAI Realtime, Gemini Live, xAI Grok) don't require a simulated call to play out in real time. We can run a session at whatever pace we want without changing what the agent hears, which lets us drive the user simulator with a much more capable text LLM (GPT-4.1 in our experiments) than a strict realtime budget would allow. Strong simulator, precise control over turn-taking, and reproducible runs &mdash; we did not have to choose.</p>
+      <p>One implementation note worth flagging: the major voice provider APIs (OpenAI Realtime, Gemini Live, xAI Grok) don't require a simulated call to play out in real time. We can run a session at whatever pace we want without changing what the agent hears, which means the user simulator isn't held to a realtime latency or token budget &mdash; we're free to pick whatever text LLM works best for simulating the caller (GPT-4.1 in our experiments). Strong simulator, precise control over turn-taking, and reproducible runs &mdash; we did not have to choose.</p>
 
       <!-- ====== Embedded speech timeline figure ====== -->
       <div class="blog-figure-wrapper">
