@@ -164,6 +164,16 @@
       text-transform: uppercase; letter-spacing: 0.05em;
     }
     .demo-label-icon { font-size: 15px; }
+    .fig-num {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.04em; color: #1a202c;
+      background: #ffffff; border: 1px solid #cbd5e0; border-radius: 4px;
+      padding: 2px 7px; font-variant-numeric: tabular-nums;
+    }
+    .fig-num-inline {
+      color: #1a202c; font-weight: 700; letter-spacing: 0;
+      margin-right: 6px;
+    }
     .demo-caption {
       font-size: 13.5px; color: #718096; line-height: 1.6;
       padding: 12px 20px 16px; border-top: 1px solid #e2e8f0; background: #f8fafc;
@@ -207,24 +217,13 @@
        Charts (custom HTML/CSS bars)
        ======================================================== */
 
-    /* Headline 4-bar chart */
-    .headline-chart {
-      display: grid; grid-template-columns: 1fr; gap: 14px;
-      padding: 22px 24px 8px;
-    }
-    .hc-bar-row {
-      display: grid; grid-template-columns: 180px 1fr 70px;
-      align-items: center; gap: 14px;
-    }
-    .hc-bar-label-main { font-size: 13.5px; font-weight: 600; color: #1a202c; line-height: 1.25; }
-    .hc-bar-label-sub { font-size: 11.5px; color: #a0aec0; margin-top: 1px; line-height: 1.2; }
+    /* Inline tag (used on demo-block labels: paper-era, WIP, etc.) */
     .hc-tag {
       display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.04em;
       text-transform: uppercase; padding: 1px 6px; border-radius: 4px; margin-left: 6px;
       vertical-align: 1px;
     }
     .hc-tag-paper { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
-    .hc-tag-now { background: #dcfce7; color: #065f46; border: 1px solid #86efac; }
     .hc-tag-wip { background: #fef3c7; color: #92400e; border: 1px solid #fbbf24; }
 
     /* Work-in-progress note (yellow callout under a WIP-tagged demo block) */
@@ -238,30 +237,6 @@
       display: inline-block; font-size: 10px; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
       color: #92400e; margin-right: 6px;
-    }
-    .hc-bar-track {
-      position: relative; height: 28px; background: #f1f5f9; border-radius: 6px; overflow: hidden;
-    }
-    .hc-bar-fill {
-      position: absolute; left: 0; top: 0; bottom: 0;
-      border-radius: 6px; transition: width 0.4s ease;
-    }
-    .hc-bar-val {
-      font-size: 14px; font-weight: 700; color: #1a202c;
-      text-align: right; font-variant-numeric: tabular-nums;
-    }
-    .hc-bar-val .delta {
-      display: block; font-size: 11px; font-weight: 600; color: #c2410c; line-height: 1.1; margin-top: 1px;
-    }
-    .hc-bar-val .delta.pos { color: #047857; }
-    .hc-axis {
-      grid-column: 2 / 3; height: 18px; position: relative; margin-top: 4px;
-      font-size: 11px; color: #a0aec0; font-variant-numeric: tabular-nums;
-    }
-    .hc-axis-tick { position: absolute; top: 0; transform: translateX(-50%); }
-    .hc-axis-bar {
-      position: absolute; top: -1px; height: 4px; width: 1px; background: #cbd5e0;
-      transform: translateX(-50%);
     }
 
     .chart-note {
@@ -482,10 +457,6 @@
       .blog-title { font-size: 2rem; }
       .blog-content { font-size: 1rem; }
 
-      .hc-bar-row { grid-template-columns: 1fr; gap: 4px; }
-      .hc-bar-row .hc-bar-val { text-align: left; }
-      .hc-axis { grid-column: auto; }
-
       .pp-row { grid-template-columns: 70px 1fr 90px; }
       .fm-grid { grid-template-columns: 1fr; }
       .ea-row { grid-template-columns: 56px 1fr 56px; }
@@ -598,7 +569,7 @@
       <p>Each tick, the simulator does four things in sequence: it generates the next caller utterance as text, synthesises it through a voice persona, mixes the synthesised speech with environmental audio (background noise, vocal tics, non-directed speech), and applies channel degradation (G.711 µ-law compression at 8&nbsp;kHz, dynamic muffling, frame drops via a Gilbert-Elliott model). A separate LLM-driven turn-taking policy, evaluated every two seconds, decides whether to interrupt, yield, or backchannel.</p>
 
       <div class="demo-block" id="pipeline-figure">
-        <div class="demo-label"><span class="demo-label-icon">🎙</span> Voice User Simulator Pipeline <span class="hc-tag hc-tag-wip" style="margin-left:8px;">WIP</span></div>
+        <div class="demo-label"><span class="fig-num">Fig 1</span><span class="demo-label-icon">🎙</span> Voice User Simulator Pipeline <span class="hc-tag hc-tag-wip" style="margin-left:8px;">WIP</span></div>
         <div class="wip-note"><span class="wip-note-label">Work in progress</span>This diagram is a sketch of the simulator stages, not a precise spec &mdash; e.g. the turn-taking policy lane, persona/channel ordering, and the exact set of audio effects need a pass for accuracy. Updated version coming.</div>
         <div class="pipeline-wrap">
           <svg class="pipeline-svg" viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pipeline diagram">
@@ -664,68 +635,43 @@
         </div>
       </div>
 
-      <!-- ====== Headline finding ====== -->
-      <h2>The voice&ndash;text gap: large in the paper, shrinking fast on the leaderboard</h2>
+      <!-- ====== Progress over time ====== -->
+      <h2>Voice models are improving fast &mdash; really fast</h2>
 
-      <p>Because τ-voice and τ-bench share tasks, tools, and evaluator, the comparison is unusually clean: voice vs.&nbsp;text, on the same problem. Below, we plot four points on a single 0&ndash;100% pass@1 axis, all averaged across retail, airline, and telecom: the text reasoning ceiling, a strong non-reasoning text baseline, the best voice agent at the time of the paper (Feb&nbsp;2026), and the best voice agent on the leaderboard <em>this week</em>.</p>
+      <p>Because τ-voice inherits its tasks, tools, and evaluator from τ-bench, voice numbers can be plotted directly on the same axis as text. The chart below is the τ-voice progress timeline &mdash; the same view rendered by the live leaderboard's <a href="/#progress?benchmark=voice">Progress over time</a> panel &mdash; overlaid with two text reference lines: the current text reasoning ceiling (~85% pass@1, Gemini&nbsp;3&nbsp;Pro / GPT-5.2 / Claude Opus&nbsp;4.5) and a strong non-reasoning text baseline (54%, GPT-4.1).</p>
 
-      <div class="demo-block" id="headline-chart">
-        <div class="demo-label"><span class="demo-label-icon">📈</span> Pass@1 across retail + airline + telecom &nbsp;·&nbsp; text vs voice, then vs now <span class="hc-tag hc-tag-wip" style="margin-left:8px;">WIP</span></div>
-        <div class="wip-note"><span class="wip-note-label">Work in progress</span>This 4-bar comparison mixes paper-era and current-leaderboard numbers in a way that's hard to read at a glance. Plan: merge it with the &ldquo;Voice models are improving fast&rdquo; section below into a single timeline that shows the text ceiling/baseline as horizontal reference lines and the voice frontier as a continuous progression &mdash; one chart, one story, no &ldquo;then vs. now&rdquo; ambiguity.</div>
-        <div class="headline-chart">
-          <div class="hc-bar-row">
-            <div>
-              <div class="hc-bar-label-main">Text · reasoning ceiling</div>
-              <div class="hc-bar-label-sub">Best text agent (Gemini 3 Pro / GPT-5.2 / Opus 4.5)</div>
-            </div>
-            <div class="hc-bar-track"><div class="hc-bar-fill" style="width: 85%; background: linear-gradient(90deg, #34d399, #059669);"></div></div>
-            <div class="hc-bar-val">85%</div>
-          </div>
-          <div class="hc-bar-row">
-            <div>
-              <div class="hc-bar-label-main">Text · non-reasoning baseline</div>
-              <div class="hc-bar-label-sub">GPT-4.1 (no reasoning)</div>
-            </div>
-            <div class="hc-bar-track"><div class="hc-bar-fill" style="width: 54%; background: linear-gradient(90deg, #6ee7b7, #34d399);"></div></div>
-            <div class="hc-bar-val">54%</div>
-          </div>
-          <div class="hc-bar-row">
-            <div>
-              <div class="hc-bar-label-main">Voice · paper-era best <span class="hc-tag hc-tag-paper">paper · Feb 2026</span></div>
-              <div class="hc-bar-label-sub">xAI grok-voice-fast-1.0, realistic conditions</div>
-            </div>
-            <div class="hc-bar-track"><div class="hc-bar-fill" style="width: 38%; background: linear-gradient(90deg, #fda4af, #f43f5e);"></div></div>
-            <div class="hc-bar-val">38%<span class="delta">−47 pp vs text ceiling</span></div>
-          </div>
-          <div class="hc-bar-row">
-            <div>
-              <div class="hc-bar-label-main">Voice · today's best <span class="hc-tag hc-tag-now">leaderboard · this week</span></div>
-              <div class="hc-bar-label-sub">xAI grok-voice-think-fast-1.0, realistic conditions</div>
-            </div>
-            <div class="hc-bar-track"><div class="hc-bar-fill" style="width: 67%; background: linear-gradient(90deg, #fdba74, #f97316);"></div></div>
-            <div class="hc-bar-val">67%<span class="delta">−18 pp vs text ceiling</span></div>
-          </div>
-          <div class="hc-axis">
-            <span class="hc-axis-bar" style="left: 0%"></span><span class="hc-axis-tick" style="left: 0%">0</span>
-            <span class="hc-axis-bar" style="left: 25%"></span><span class="hc-axis-tick" style="left: 25%">25</span>
-            <span class="hc-axis-bar" style="left: 50%"></span><span class="hc-axis-tick" style="left: 50%">50</span>
-            <span class="hc-axis-bar" style="left: 75%"></span><span class="hc-axis-tick" style="left: 75%">75</span>
-            <span class="hc-axis-bar" style="left: 100%"></span><span class="hc-axis-tick" style="left: 100%">100</span>
+      <div class="progress-card" id="progress-chart">
+        <div class="progress-card-head">
+          <div>
+            <div class="progress-card-title"><span class="fig-num-inline">Fig 2.</span>τ-voice Overall pass@1 by release date</div>
+            <div class="progress-card-sub">Pass@1 on τ-voice · overall · plotted at each model's public release date. 7 models. Text reference lines from the τ-bench text leaderboard.</div>
           </div>
         </div>
-        <div class="chart-note">
-          When the paper was written, the best voice agent retained only about <strong>45%</strong> of the text ceiling. Two months later it retains <strong>~79%</strong> &mdash; and overtakes the strongest non-reasoning text model on the same tasks. The reasoning gap is closing too: like text, the voice frontier moved when explicit reasoning was added (xAI's "Think Fast" model). <strong>Same domains, same evaluator, no asterisks.</strong>
+        <div class="progress-svg-wrap">
+          <svg class="progress-svg" id="progressSvg" viewBox="0 0 1080 560"
+               xmlns="http://www.w3.org/2000/svg" role="img"
+               aria-label="τ-voice progress over time"></svg>
         </div>
-        <div class="source-line"><strong>Sources:</strong> τ-voice paper Table&nbsp;1 (paper-era voice); τ-bench leaderboard submissions for current text and voice numbers (retail&nbsp;114&nbsp;+ airline&nbsp;50&nbsp;+ telecom&nbsp;114&nbsp;= 278 tasks).</div>
+        <div class="progress-legend" id="progressLegend"></div>
+        <div class="progress-footnote">
+          Voice markers show each model's overall pass@1 (average of retail, airline, and telecom)
+          plotted at its public release date. The dashed green line tracks the running best.
+          The two horizontal grey lines are text-leaderboard reference points
+          (reasoning ceiling and non-reasoning baseline) on the same 278 tasks.
+        </div>
       </div>
 
-      <p>Two things are worth pausing on. First, voice agents have already overtaken non-reasoning text models on the same tasks: end-to-end audio is no longer paying a penalty for being audio. Second, the speed of progress between the paper freeze and today (~30&nbsp;pp on the voice frontier in 2&nbsp;months) is the single best argument for keeping a live, reproducible benchmark like this open. The static numbers in the paper are already out of date; the rest of this post will be careful to flag what's "paper-era" and what's "today".</p>
+      <p>In about eight months the voice frontier has moved from <strong>30%</strong> (OpenAI's gpt-realtime-1.0, Aug&nbsp;2025) to <strong>67%</strong> (xAI's grok-voice-think-fast-1.0, Apr&nbsp;2026), crossing the non-reasoning text line and closing most of the way to the reasoning ceiling. The biggest single move is the most recent one &mdash; a <strong>+29&nbsp;pp jump in roughly two months</strong>, driven by xAI's reasoning-enabled audio-native model &mdash; and the pattern is familiar from text: <strong>adding explicit reasoning to the audio-native model unlocks a step change in tool-use reliability</strong>. Voice has gone from retaining roughly <strong>~45%</strong> of text capability when the paper was written to <strong>~79%</strong> today. <strong>Same domains, same evaluator, no asterisks.</strong></p>
 
-      <p>The paper-era findings below are still useful: they tell us <em>why</em> voice is hard, and where each provider's weak spots are. We'll flag where today's leaderboard already supersedes them.</p>
+      <p>To explore the full leaderboard &mdash; including per-domain breakdowns, custom submissions, the <a href="/#progress?benchmark=voice">same Progress-over-time panel</a>, and the underlying trajectories &mdash; jump straight to the <a href="/#leaderboard?benchmark=voice">τ-voice ranking</a> (or the <a href="/#leaderboard?benchmark=text">τ-bench text ranking</a> for direct comparison). We've worked with every major audio-native provider so far; the chart above will keep moving.</p>
 
-      <!-- ====== Per-provider Clean vs Realistic ====== -->
+      <!-- ====== Failure analysis ====== -->
+      <h2>What's actually going wrong</h2>
+
+      <p>Before zooming into the failures themselves, it helps to see how each provider's pass@1 changes when we move from <strong>Clean</strong> (single persona, no acoustic effects, strict turn-taking) to <strong>Realistic</strong> (diverse personas, environmental noise, free-form turn-taking) on the paper-era models &mdash; the absolute drop varies, but every provider takes a hit.</p>
+
       <div class="demo-block" id="provider-chart">
-        <div class="demo-label"><span class="demo-label-icon">📊</span> Clean vs Realistic by provider <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
+        <div class="demo-label"><span class="fig-num">Fig 3</span><span class="demo-label-icon">📊</span> Clean vs Realistic by provider <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
         <div class="pp-grouped">
 
           <div class="pp-group">
@@ -781,17 +727,14 @@
 
         </div>
         <div class="chart-note">
-          <strong>Google</strong> is the most robust to acoustic degradation, losing only ~17% of its clean performance vs.&nbsp;24&ndash;28% for the others &mdash; even though its absolute scores are lowest. <strong>xAI</strong> tops both regimes overall. <strong>OpenAI</strong> wins one specific domain by a lot (Retail, 71% Clean &mdash; the single best per-domain score in the benchmark) but degrades the most when the audio gets messy. <em>The newer xAI <strong>grok-voice-think-fast-1.0</strong> (Apr&nbsp;2026, on the leaderboard) reaches <strong>67% realistic</strong> &mdash; a step change above all paper-era models &mdash; we discuss it below.</em>
+          <strong>Google</strong> is the most robust to acoustic degradation, losing only ~17% of its clean performance vs.&nbsp;24&ndash;28% for the others &mdash; even though its absolute scores are lowest. <strong>xAI</strong> tops both regimes overall. <strong>OpenAI</strong> wins one specific domain by a lot (Retail, 71% Clean &mdash; the single best per-domain score in the benchmark) but degrades the most when the audio gets messy.
         </div>
       </div>
 
-      <!-- ====== Failure analysis ====== -->
-      <h2>What's actually going wrong</h2>
-
-      <p>It would be tempting to attribute the voice&ndash;text gap to "the user simulator is too aggressive" or "the audio effects are unrealistic." We expected some of that ourselves, so we did the work to rule it out. Two annotators labelled every failed simulation in two analysis cohorts &mdash; <strong>Voice-Fragile</strong> (tasks the text models pass but voice-Clean models fail) and <strong>Noise-Fragile</strong> (tasks voice-Clean passes but voice-Realistic fails) &mdash; tagging both the source and type of the first critical error.</p>
+      <p>Knowing each provider takes a hit is one thing; knowing <em>which mistakes</em> drive the hit is another. Two annotators labelled every failed simulation in two analysis cohorts &mdash; <strong>Voice-Fragile</strong> (tasks the text models pass but voice-Clean models fail) and <strong>Noise-Fragile</strong> (tasks voice-Clean passes but voice-Realistic fails) &mdash; tagging both the source and type of the first critical error.</p>
 
       <div class="demo-block" id="error-analysis">
-        <div class="demo-label"><span class="demo-label-icon">🔬</span> Manual error analysis &nbsp;·&nbsp; 91 failed simulations <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
+        <div class="demo-label"><span class="fig-num">Fig 4</span><span class="demo-label-icon">🔬</span> Manual error analysis &nbsp;·&nbsp; 91 failed simulations <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
         <div class="ea-cohort">
           <div class="ea-cohort-title">Voice-Fragile cohort &mdash; 43 failures</div>
           <div class="ea-cohort-sub">Tasks both text models pass, but a majority of voice-Clean providers fail. Isolates the cost of going voice-native.</div>
@@ -860,7 +803,7 @@
       <h3>The four failure modes that matter most</h3>
 
       <div class="demo-block" id="failure-modes">
-        <div class="demo-label"><span class="demo-label-icon">📋</span> Recurring failure patterns</div>
+        <div class="demo-label"><span class="fig-num">Fig 5</span><span class="demo-label-icon">📋</span> Recurring failure patterns</div>
         <div class="fm-grid">
           <div class="fm-card">
             <div class="fm-card-head">
@@ -906,7 +849,7 @@
       <p>To quantify how much each part of "realistic" contributes to the failure modes above, we ran ablations on the retail domain &mdash; adding background noise, diverse accents, and turn-taking dynamics one factor at a time, on top of an otherwise clean condition.</p>
 
       <div class="demo-block" id="ablation-chart">
-        <div class="demo-label"><span class="demo-label-icon">🧪</span> Ablation &nbsp;·&nbsp; impact of each factor on Retail pass@1 <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
+        <div class="demo-label"><span class="fig-num">Fig 6</span><span class="demo-label-icon">🧪</span> Ablation &nbsp;·&nbsp; impact of each factor on Retail pass@1 <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
         <div class="ab-table-wrap">
           <table class="ab-table">
             <thead>
@@ -978,36 +921,6 @@
         </div>
         <a href="/blog/tau-voice-examples.html" class="explore-cta-btn">Open audio examples &rarr;</a>
       </div>
-
-      <!-- ====== Progress over time ====== -->
-      <h2>Voice models are improving fast &mdash; really fast</h2>
-
-      <p>The charts above come from our paper, which froze its evaluation in February 2026. Voice models have not stood still since. The leaderboard has accumulated seven audio-native submissions across all three providers we evaluated, and the frontier has shifted dramatically &mdash; especially this week. The view below is the same one that the live leaderboard's <a href="/#progress?benchmark=voice">Progress over time</a> panel renders, restricted to voice submissions.</p>
-
-      <div class="progress-card" id="progress-chart">
-        <div class="progress-card-head">
-          <div>
-            <div class="progress-card-title">τ-voice Overall pass@1 by release date</div>
-            <div class="progress-card-sub">Pass@1 on τ-voice · overall · plotted at each model's public release date. 7 models.</div>
-          </div>
-        </div>
-        <div class="progress-svg-wrap">
-          <svg class="progress-svg" id="progressSvg" viewBox="0 0 1080 560"
-               xmlns="http://www.w3.org/2000/svg" role="img"
-               aria-label="τ-voice progress over time"></svg>
-        </div>
-        <div class="progress-legend" id="progressLegend"></div>
-        <div class="progress-footnote">
-          Markers show each model's overall pass@1 plotted at its public release date.
-          Hover any marker for details. The dashed line tracks the running best.
-          Submissions without a published <code>model_release.release_date</code> fall back
-          to the evaluation date.
-        </div>
-      </div>
-
-      <p>In about eight months the voice frontier on τ-voice has moved from <strong>30%</strong> (OpenAI's gpt-realtime-1.0, Aug&nbsp;2025) to <strong>67%</strong> (xAI's grok-voice-think-fast-1.0, Apr&nbsp;2026). The single biggest move is the most recent one: a <strong>+29&nbsp;pp jump in roughly two months</strong>, driven by xAI's reasoning-enabled audio-native model. We're starting to see for voice the same pattern that played out in text: <strong>adding explicit reasoning to the audio-native model unlocks a step change in tool-use reliability</strong>.</p>
-
-      <p>To explore the full leaderboard &mdash; including per-domain breakdowns, custom submissions, the <a href="/#progress?benchmark=voice">same Progress-over-time panel</a>, and the underlying trajectories &mdash; jump straight to the <a href="/#leaderboard?benchmark=voice">τ-voice ranking</a> (or the <a href="/#leaderboard?benchmark=text">τ-bench text ranking</a> for direct comparison). We've worked with every major audio-native provider so far; the chart above will keep moving.</p>
 
       <!-- ====== Providers strip ====== -->
       <div class="demo-block" id="providers">
@@ -1217,6 +1130,19 @@
       parts.push(`<text x="${xx}" y="${plotY1 + 20}" text-anchor="middle" font-size="11" fill="#64748b">${fmtMonth(m)}</text>`);
     });
 
+    // Text reference lines (from τ-bench text leaderboard, same 278 tasks).
+    // Labels are anchored at the LEFT edge of the plot so they don't collide
+    // with the most-recent voice-frontier labels on the right side of the chart.
+    const textRefs = [
+      { v: 85, label: 'Text · reasoning ceiling (85%)' },
+      { v: 54, label: 'Text · non-reasoning baseline (GPT-4.1, 54%)' },
+    ];
+    textRefs.forEach(ref => {
+      const y = yOf(ref.v);
+      parts.push(`<line x1="${plotX0}" y1="${y.toFixed(1)}" x2="${plotX1}" y2="${y.toFixed(1)}" stroke="#94a3b8" stroke-width="1.25" stroke-dasharray="4,4"/>`);
+      parts.push(`<text x="${(plotX0 + 10).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="start" font-size="11" font-weight="600" fill="#475569" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">${ref.label}</text>`);
+    });
+
     // Frontier
     if (areaPath) parts.push(`<path d="${areaPath}" fill="url(#frontierFill)"/>`);
     if (frontierPath) parts.push(`<path d="${frontierPath}" fill="none" stroke="#047857" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6,4"/>`);
@@ -1257,7 +1183,9 @@
         ? `<img src="${logo}" alt="${org}"/>`
         : `<span style="color:${ORG_TINT[org] || '#1f2937'}">${org[0]}</span>`;
       return `<span class="progress-legend-item"><span class="progress-legend-logo">${inner}</span>${org}</span>`;
-    }).join('') + `<span class="progress-legend-item"><span class="progress-legend-line"></span>Frontier (best so far)</span>`;
+    }).join('')
+      + `<span class="progress-legend-item"><span class="progress-legend-line"></span>Voice frontier (best so far)</span>`
+      + `<span class="progress-legend-item"><span class="progress-legend-line" style="border-top-color:#94a3b8; border-top-width:1.5px; border-top-style:dashed;"></span>Text reference (τ-bench)</span>`;
     document.getElementById('progressLegend').innerHTML = legendHTML;
   })();
   </script>
