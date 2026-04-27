@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>τ-voice | τ-bench</title>
-  <meta name="description" content="τ-voice is a benchmark for full-duplex voice agents on grounded customer-service tasks. We measure the gap between voice and text agents, the impact of realistic audio, and how fast voice models are improving.">
+  <meta name="description" content="τ-voice is a benchmark for live voice agents on grounded customer-service tasks. We measure the gap between voice and text agents, the impact of realistic audio, and how fast voice models are improving.">
   <style>
     /* ========================================================
        Base / typography — matches tau-knowledge.html
@@ -527,7 +527,7 @@
 
     <header class="blog-header">
       <span class="blog-badge">Research</span>
-      <h1 class="blog-title"><span class="tau-symbol">τ</span>-voice: benchmarking full-duplex voice agents on real-world tasks</h1>
+      <h1 class="blog-title"><span class="tau-symbol">τ</span>-voice: benchmarking live voice agents on real-world tasks</h1>
       <p class="blog-subtitle">A reproducible testbed for voice agents that need to listen, speak, reason, and act &mdash; under realistic phone conditions, on tasks that have a verifiable right answer.</p>
       <p class="blog-meta">April 2026 · Sierra Research · <a href="https://arxiv.org/abs/2603.13686" target="_blank" rel="noopener noreferrer">Paper</a> · <a href="https://github.com/sierra-research/tau2-bench" target="_blank" rel="noopener noreferrer">GitHub</a></p>
     </header>
@@ -538,7 +538,7 @@
       <div class="tldr-box">
         <div class="tldr-label">TL;DR</div>
         <p>
-          <strong>τ-voice</strong> is a benchmark for live, full-duplex voice agents on <strong>278 grounded customer-service tasks</strong> across retail, airline, and telecom. It pairs deterministic, end-to-end task scoring with realistic, controllable audio &mdash; diverse personas, environmental noise, and free-form turn-taking. It does this by inheriting the tasks, tools, policy documents, and evaluator from <strong>τ-bench</strong>, so every voice number here can be read directly against its half-duplex text counterpart.
+          <strong>τ-voice</strong> is a benchmark for live voice agents on <strong>278 grounded customer-service tasks</strong> across retail, airline, and telecom. It pairs deterministic, end-to-end task scoring with realistic, controllable audio &mdash; diverse personas, environmental noise, and free-form turn-taking. It does this by inheriting the tasks, tools, policy documents, and evaluator from <strong>τ-bench</strong>, so every voice number here can be read directly against its text counterpart.
         </p>
         <p>
           When we wrote the paper (frozen Feb&nbsp;2026), the best audio-native agent reached only <strong>~38% realistic pass@1</strong> against an <strong>~85%</strong> text ceiling &mdash; voice retained just <strong>~45%</strong> of text capability, and <strong>79&ndash;90%</strong> of failures were genuine agent errors, not simulator artefacts. Two months later, <strong>xAI's grok-voice-think-fast-1.0</strong> lifts the voice frontier to <strong>67% average pass@1</strong>, closing most of the gap with non-reasoning text models. The benchmark is doing what we hoped: surfacing real, fast progress on real tasks.
@@ -568,12 +568,12 @@
       <p>τ-voice is the first benchmark to combine three things that have so far been evaluated in isolation:</p>
 
       <ul>
-        <li><strong>Verifiable, grounded tasks &mdash; shared with the text benchmark.</strong> 278 customer-service tasks inherited from τ-bench, scored deterministically against the final database state. The tasks, the tools, the policy documents, and the evaluator are <em>byte-for-byte identical</em> to those used by half-duplex text agents on the τ-bench leaderboard. That means the voice numbers in this post can be compared directly against a text agent on the same task &mdash; <strong>full-duplex voice vs.&nbsp;half-duplex text, no apples-to-oranges caveat</strong>.</li>
-        <li><strong>Full-duplex interaction.</strong> Both the user and the agent can speak simultaneously. A tick-based orchestrator coordinates 200&nbsp;ms audio chunks in both directions, lets the agent be interrupted mid-sentence, and gives us precise, repeatable control over turn-taking timing.</li>
+        <li><strong>Verifiable, grounded tasks &mdash; shared with the text benchmark.</strong> 278 customer-service tasks inherited from τ-bench, scored deterministically against the final database state. The tasks, the tools, the policy documents, and the evaluator are <em>byte-for-byte identical</em> to those used by text agents on the τ-bench leaderboard. That means the voice numbers in this post can be compared directly against a text agent on the same task &mdash; <strong>voice vs.&nbsp;text, on the exact same problem, no apples-to-oranges caveat</strong>.</li>
+        <li><strong>Live, simultaneous speech.</strong> Both the user and the agent can speak at the same time, with overlap, interruptions, and backchannels &mdash; the <em>full-duplex</em> regime, in contrast to the <em>half-duplex</em>, strictly turn-based setting of text agents. A tick-based orchestrator coordinates 200&nbsp;ms audio chunks in both directions, lets the agent be interrupted mid-sentence, and gives us precise, repeatable control over turn-taking timing.</li>
         <li><strong>Realistic, controllable audio.</strong> A voice user simulator that synthesises caller speech with diverse personas, mixes in environmental noise, applies telephony compression, drops frames, and decides &mdash; turn by turn &mdash; whether to interrupt, yield, or backchannel.</li>
       </ul>
 
-      <p>The trick that holds it all together is <strong>decoupling simulation time from wall-clock time</strong>. Voice provider APIs (OpenAI Realtime, Gemini Live, xAI Grok) index events on audio time, not real time, which means we can advance the conversation faster or slower than realtime without breaking semantics. That, in turn, lets us drive the user simulator with the most capable text LLM available (GPT-4.1 in our experiments) without forcing it to think in 200&nbsp;ms increments. Reproducibility, fine-grained control over turn-taking, and a strong simulator: we did not have to choose.</p>
+      <p>One implementation note worth flagging: the major voice provider APIs (OpenAI Realtime, Gemini Live, xAI Grok) don't require a simulated call to play out in real time. We can run a session at whatever pace we want without changing what the agent hears, which lets us drive the user simulator with a much more capable text LLM (GPT-4.1 in our experiments) than a strict realtime budget would allow. Strong simulator, precise control over turn-taking, and reproducible runs &mdash; we did not have to choose.</p>
 
       <!-- ====== Embedded speech timeline figure ====== -->
       <div class="blog-figure-wrapper">
@@ -657,7 +657,7 @@
       <!-- ====== Headline finding ====== -->
       <h2>The voice&ndash;text gap: large in the paper, shrinking fast on the leaderboard</h2>
 
-      <p>Because τ-voice and τ-bench share tasks, tools, and evaluator, the comparison is unusually clean: full-duplex voice vs.&nbsp;half-duplex text, on the same problem. Below, we plot four points on a single 0&ndash;100% pass@1 axis, all averaged across retail, airline, and telecom: the text reasoning ceiling, a strong non-reasoning text baseline, the best voice agent at the time of the paper (Feb&nbsp;2026), and the best voice agent on the leaderboard <em>this week</em>.</p>
+      <p>Because τ-voice and τ-bench share tasks, tools, and evaluator, the comparison is unusually clean: voice vs.&nbsp;text, on the same problem. Below, we plot four points on a single 0&ndash;100% pass@1 axis, all averaged across retail, airline, and telecom: the text reasoning ceiling, a strong non-reasoning text baseline, the best voice agent at the time of the paper (Feb&nbsp;2026), and the best voice agent on the leaderboard <em>this week</em>.</p>
 
       <div class="demo-block" id="headline-chart">
         <div class="demo-label"><span class="demo-label-icon">📈</span> Pass@1 across retail + airline + telecom &nbsp;·&nbsp; text vs voice, then vs now</div>
@@ -665,7 +665,7 @@
           <div class="hc-bar-row">
             <div>
               <div class="hc-bar-label-main">Text · reasoning ceiling</div>
-              <div class="hc-bar-label-sub">Best half-duplex text agent (Gemini 3 Pro / GPT-5.2 / Opus 4.5)</div>
+              <div class="hc-bar-label-sub">Best text agent (Gemini 3 Pro / GPT-5.2 / Opus 4.5)</div>
             </div>
             <div class="hc-bar-track"><div class="hc-bar-fill" style="width: 85%; background: linear-gradient(90deg, #34d399, #059669);"></div></div>
             <div class="hc-bar-val">85%</div>
