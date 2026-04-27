@@ -170,10 +170,6 @@
       background: #ffffff; border: 1px solid #cbd5e0; border-radius: 4px;
       padding: 2px 7px; font-variant-numeric: tabular-nums;
     }
-    .fig-num-inline {
-      color: #1a202c; font-weight: 700; letter-spacing: 0;
-      margin-right: 6px;
-    }
     .demo-caption {
       font-size: 13.5px; color: #718096; line-height: 1.6;
       padding: 12px 20px 16px; border-top: 1px solid #e2e8f0; background: #f8fafc;
@@ -559,7 +555,7 @@
       <div class="blog-figure-wrapper">
         <iframe src="/blog/tau-voice-figure.html" height="640" scrolling="no" title="τ-voice speech activity timeline"></iframe>
         <div class="blog-figure-caption">
-          <strong>Figure 1.</strong> A simulated τ-voice call in the retail domain. The main timeline (top) shows six minutes of overlapping user and agent speech, mixed with realistic acoustic effects. Inset A decomposes the audio the agent actually receives &mdash; clean speech mixed with street noise, a car-horn burst, and a non-agent-directed remark. Inset B zooms into a turn-taking moment: the agent must decide what to ignore and when to yield.
+          <span class="fig-num" style="margin-right:8px; vertical-align:1px;">Fig 1</span> A simulated τ-voice call in the retail domain. The main timeline (top) shows six minutes of overlapping user and agent speech, mixed with realistic acoustic effects. Inset A decomposes the audio the agent actually receives &mdash; clean speech mixed with street noise, a car-horn burst, and a non-agent-directed remark. Inset B zooms into a turn-taking moment: the agent must decide what to ignore and when to yield.
         </div>
       </div>
 
@@ -569,69 +565,147 @@
       <p>Each tick, the simulator does four things in sequence: it generates the next caller utterance as text, synthesises it through a voice persona, mixes the synthesised speech with environmental audio (background noise, vocal tics, non-directed speech), and applies channel degradation (G.711 µ-law compression at 8&nbsp;kHz, dynamic muffling, frame drops via a Gilbert-Elliott model). A separate LLM-driven turn-taking policy, evaluated every two seconds, decides whether to interrupt, yield, or backchannel.</p>
 
       <div class="demo-block" id="pipeline-figure">
-        <div class="demo-label"><span class="fig-num">Fig 1</span><span class="demo-label-icon">🎙</span> Voice User Simulator Pipeline <span class="hc-tag hc-tag-wip" style="margin-left:8px;">WIP</span></div>
-        <div class="wip-note"><span class="wip-note-label">Work in progress</span>This diagram is a sketch of the simulator stages, not a precise spec &mdash; e.g. the turn-taking policy lane, persona/channel ordering, and the exact set of audio effects need a pass for accuracy. Updated version coming.</div>
+        <div class="demo-label"><span class="fig-num">Fig 2</span><span class="demo-label-icon">🎙</span> Audio generation pipeline</div>
         <div class="pipeline-wrap">
-          <svg class="pipeline-svg" viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pipeline diagram">
-            <!-- Boxes -->
-            <g font-family="-apple-system, sans-serif" font-size="12" fill="#1a202c" font-weight="600">
-
-              <!-- Stage 1 -->
-              <rect x="10" y="50" width="130" height="64" rx="10" fill="#ecfdf5" stroke="#34d399" stroke-width="1.5"/>
-              <text x="75" y="72" text-anchor="middle">Speech generation</text>
-              <text x="75" y="92" text-anchor="middle" font-size="10.5" font-weight="500" fill="#4a5568">User-sim LLM,</text>
-              <text x="75" y="105" text-anchor="middle" font-size="10.5" font-weight="500" fill="#4a5568">disfluencies, fillers</text>
-
-              <!-- Stage 2 -->
-              <rect x="170" y="50" width="130" height="64" rx="10" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
-              <text x="235" y="72" text-anchor="middle">TTS persona</text>
-              <text x="235" y="92" text-anchor="middle" font-size="10.5" font-weight="500" fill="#4a5568">7 personas,</text>
-              <text x="235" y="105" text-anchor="middle" font-size="10.5" font-weight="500" fill="#4a5568">diverse accents</text>
-
-              <!-- Stage 3 -->
-              <rect x="330" y="50" width="130" height="64" rx="10" fill="#faf5ff" stroke="#a78bfa" stroke-width="1.5"/>
-              <text x="395" y="72" text-anchor="middle">Audio environment</text>
-              <text x="395" y="92" text-anchor="middle" font-size="10.5" font-weight="500" fill="#4a5568">Noise, bursts,</text>
-              <text x="395" y="105" text-anchor="middle" font-size="10.5" font-weight="500" fill="#4a5568">non-directed speech</text>
-
-              <!-- Stage 4 -->
-              <rect x="490" y="50" width="130" height="64" rx="10" fill="#fff1f2" stroke="#fb7185" stroke-width="1.5"/>
-              <text x="555" y="72" text-anchor="middle">Channel</text>
-              <text x="555" y="92" text-anchor="middle" font-size="10.5" font-weight="500" fill="#4a5568">G.711, muffling,</text>
-              <text x="555" y="105" text-anchor="middle" font-size="10.5" font-weight="500" fill="#4a5568">frame drops</text>
-
-              <!-- Output -->
-              <rect x="650" y="50" width="100" height="64" rx="10" fill="#0f172a" stroke="#0f172a"/>
-              <text x="700" y="80" text-anchor="middle" fill="#ecfdf5">Agent</text>
-              <text x="700" y="98" text-anchor="middle" font-size="10.5" font-weight="500" fill="#a7f3d0">audio in</text>
-
-              <!-- Arrows -->
-              <g stroke="#94a3b8" stroke-width="1.4" fill="none" marker-end="url(#arr)">
-                <line x1="140" y1="82" x2="170" y2="82"/>
-                <line x1="300" y1="82" x2="330" y2="82"/>
-                <line x1="460" y1="82" x2="490" y2="82"/>
-                <line x1="620" y1="82" x2="650" y2="82"/>
-              </g>
-
-              <!-- Turn-taking policy lane -->
-              <rect x="10" y="150" width="610" height="36" rx="8" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.2"/>
-              <text x="315" y="172" text-anchor="middle" font-size="11.5" font-weight="600" fill="#92400e">Turn-taking policy &mdash; interrupt? yield? backchannel? &nbsp;(LLM-driven, evaluated every 2 s)</text>
-
-              <!-- Side outputs to bot lane -->
-              <g stroke="#fbbf24" stroke-width="1" fill="none" stroke-dasharray="3 3">
-                <line x1="75" y1="114" x2="75" y2="150"/>
-                <line x1="395" y1="114" x2="395" y2="150"/>
-              </g>
-            </g>
+          <svg class="pipeline-svg" viewBox="0 0 980 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Audio generation pipeline">
             <defs>
-              <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
                 <path d="M0,0 L10,5 L0,10 Z" fill="#94a3b8"/>
               </marker>
+              <marker id="arrLight" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#cbd5e1"/>
+              </marker>
+              <linearGradient id="genGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f8fafc"/>
+                <stop offset="100%" stop-color="#eef2f7"/>
+              </linearGradient>
+              <linearGradient id="chanGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#fef2f2"/>
+                <stop offset="100%" stop-color="#fee2e2"/>
+              </linearGradient>
             </defs>
+
+            <g font-family="-apple-system, sans-serif" fill="#1a202c">
+
+              <!-- ===== Sources column (left) ===== -->
+              <g font-size="12">
+                <text x="40" y="58" text-anchor="middle" font-size="22">📚</text>
+                <text x="100" y="62" text-anchor="middle" font-weight="600">Audio library</text>
+
+                <text x="40" y="148" text-anchor="middle" font-size="22">⏱</text>
+                <text x="100" y="142" text-anchor="middle" font-weight="600">Scheduler</text>
+                <text x="100" y="156" text-anchor="middle" font-size="10" font-weight="500" fill="#64748b">Poisson</text>
+
+                <text x="40" y="238" text-anchor="middle" font-size="22">🗣</text>
+                <text x="100" y="234" text-anchor="middle" font-weight="600">Voice Personas</text>
+                <text x="100" y="248" text-anchor="middle" font-size="10" font-weight="500" fill="#64748b">7 personas</text>
+              </g>
+
+              <!-- Simulated user message label + arrow into Voice Personas -->
+              <g>
+                <text x="20" y="296" font-size="11" font-style="italic" fill="#475569">Simulated user message</text>
+                <path d="M 100 286 L 100 252" fill="none" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#arr)"/>
+              </g>
+
+              <!-- ===== Generators container ===== -->
+              <rect x="180" y="35" width="290" height="240" rx="14" fill="url(#genGrad)" stroke="#cbd5e1" stroke-width="1.2"/>
+              <text x="325" y="22" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="0.08em" fill="#475569">GENERATORS</text>
+
+              <!-- Background Noise (continuous → solid) -->
+              <rect x="200" y="55" width="250" height="40" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.6"/>
+              <text x="325" y="80" text-anchor="middle" font-size="13" font-weight="600">Background Noise</text>
+
+              <!-- Bursts (intermittent → dashed) -->
+              <rect x="200" y="105" width="250" height="40" rx="6" fill="#ffffff" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="5 3"/>
+              <text x="325" y="130" text-anchor="middle" font-size="13" font-weight="600">Bursts</text>
+
+              <!-- Out-of-turn Speech (intermittent → dashed) -->
+              <rect x="200" y="155" width="250" height="40" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1.6" stroke-dasharray="5 3"/>
+              <text x="325" y="180" text-anchor="middle" font-size="13" font-weight="600">Out-of-turn Speech</text>
+
+              <!-- Speech (intermittent → dashed; main user voice) -->
+              <rect x="200" y="205" width="250" height="40" rx="6" fill="#ffffff" stroke="#10b981" stroke-width="1.6" stroke-dasharray="5 3"/>
+              <text x="325" y="230" text-anchor="middle" font-size="13" font-weight="600">Speech</text>
+
+              <!-- Source → Generator connectors -->
+              <g fill="none">
+                <!-- Audio library → Background Noise (solid, continuous source) -->
+                <line x1="155" y1="62" x2="200" y2="75" stroke="#cbd5e1" stroke-width="1.4" marker-end="url(#arrLight)"/>
+                <!-- Scheduler → Bursts (dashed) -->
+                <line x1="155" y1="142" x2="200" y2="125" stroke="#cbd5e1" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrLight)"/>
+                <!-- Scheduler → Out-of-turn Speech (dashed) -->
+                <line x1="155" y1="148" x2="200" y2="175" stroke="#cbd5e1" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrLight)"/>
+                <!-- Voice Personas → Speech (dashed; turn-driven) -->
+                <line x1="155" y1="234" x2="200" y2="225" stroke="#cbd5e1" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrLight)"/>
+              </g>
+
+              <!-- ===== Mixer ⊕ =====
+                   Connector lines drawn FIRST and routed to the circle center;
+                   the filled circle is then painted on top, hiding the line ends
+                   inside the disk. The "+" is drawn as two crossing strokes so
+                   it's perfectly centered (font glyphs aren't reliable). -->
+              <g fill="none" stroke="#94a3b8" stroke-width="1.4">
+                <path d="M 450 75  C 480 75,  500 130, 510 155"/>
+                <path d="M 450 125 C 480 125, 500 145, 510 155"/>
+                <path d="M 450 175 C 480 175, 500 165, 510 155"/>
+                <path d="M 450 225 C 480 225, 500 180, 510 155"/>
+              </g>
+              <circle cx="510" cy="155" r="22" fill="#0f172a" stroke="#0f172a"/>
+              <line x1="500" y1="155" x2="520" y2="155" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="510" y1="145" x2="510" y2="165" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+
+              <!-- Mixer → Dynamic Muffling -->
+              <line x1="532" y1="155" x2="558" y2="155" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#arr)"/>
+
+              <!-- Dynamic Muffling box (intermittent → dashed) -->
+              <rect x="558" y="135" width="115" height="40" rx="6" fill="#ffffff" stroke="#fb923c" stroke-width="1.6" stroke-dasharray="5 3"/>
+              <text x="615" y="155" text-anchor="middle" font-size="12.5" font-weight="600">Dynamic</text>
+              <text x="615" y="170" text-anchor="middle" font-size="12.5" font-weight="600">Muffling</text>
+
+              <!-- Dynamic Muffling → Channel Degradation -->
+              <line x1="673" y1="155" x2="700" y2="155" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#arr)"/>
+
+              <!-- ===== Channel Degradation container ===== -->
+              <rect x="700" y="60" width="200" height="190" rx="14" fill="url(#chanGrad)" stroke="#fca5a5" stroke-width="1.2"/>
+              <text x="800" y="48" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="0.08em" fill="#991b1b">CHANNEL DEGRADATION</text>
+
+              <!-- Telephony Conversion (continuous → solid) -->
+              <rect x="720" y="80" width="160" height="58" rx="6" fill="#ffffff" stroke="#fb7185" stroke-width="1.6"/>
+              <text x="800" y="105" text-anchor="middle" font-size="13" font-weight="600">Telephony Conversion</text>
+              <text x="800" y="123" text-anchor="middle" font-size="10.5" font-weight="500" fill="#64748b">G.711 µ-law · 8 kHz</text>
+
+              <!-- Frame Drops (intermittent → dashed) -->
+              <rect x="720" y="158" width="160" height="58" rx="6" fill="#ffffff" stroke="#fb7185" stroke-width="1.6" stroke-dasharray="5 3"/>
+              <text x="800" y="183" text-anchor="middle" font-size="13" font-weight="600">Frame Drops</text>
+              <text x="800" y="201" text-anchor="middle" font-size="10.5" font-weight="500" fill="#64748b">Gilbert–Elliott</text>
+
+              <!-- Internal flow inside Channel Degradation -->
+              <line x1="800" y1="138" x2="800" y2="158" stroke="#cbd5e1" stroke-width="1.2"/>
+
+              <!-- ===== Output ===== -->
+              <line x1="905" y1="155" x2="935" y2="155" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#arr)"/>
+              <g transform="translate(942, 142)">
+                <rect x="0"  y="6"  width="3" height="14" rx="1" fill="#0f172a"/>
+                <rect x="5"  y="2"  width="3" height="22" rx="1" fill="#0f172a"/>
+                <rect x="10" y="-2" width="3" height="30" rx="1" fill="#0f172a"/>
+                <rect x="15" y="4"  width="3" height="18" rx="1" fill="#0f172a"/>
+                <rect x="20" y="8"  width="3" height="10" rx="1" fill="#0f172a"/>
+              </g>
+              <text x="954" y="195" text-anchor="middle" font-size="10" fill="#64748b">to agent</text>
+
+              <!-- ===== Legend (bottom) ===== -->
+              <g transform="translate(490, 305)" font-size="11" fill="#475569">
+                <rect x="0"   y="-9" width="14" height="14" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+                <text x="22"  y="2" font-weight="600">continuous</text>
+                <rect x="120" y="-9" width="14" height="14" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 2"/>
+                <text x="142" y="2" font-weight="600">intermittent</text>
+              </g>
+
+            </g>
           </svg>
         </div>
         <div class="demo-caption">
-          The user simulator turns each generated reply into <em>realistic</em> caller audio: a persona-specific voice, mixed with the right background, run through a phone-grade channel. The turn-taking policy runs in parallel to decide when to interrupt or yield.
+          Each tick, four generators emit audio in parallel: <strong>Background Noise</strong> from a sound library (continuous), <strong>Bursts</strong> and <strong>Out-of-turn Speech</strong> scheduled by a Poisson process (intermittent), and the user's <strong>Speech</strong> synthesised through one of seven Voice Personas. Streams are mixed (⊕), passed through <strong>Dynamic Muffling</strong> (random fades simulating phone movement), then <strong>Channel Degradation</strong>: G.711 µ-law compression at 8&nbsp;kHz and packet-loss <strong>Frame Drops</strong> modelled as a Gilbert&ndash;Elliott process. The result is the audio the agent actually receives. A separate LLM-driven turn-taking policy decides when the user interrupts, yields, or backchannels.
         </div>
       </div>
 
@@ -643,7 +717,7 @@
       <div class="progress-card" id="progress-chart">
         <div class="progress-card-head">
           <div>
-            <div class="progress-card-title"><span class="fig-num-inline">Fig 2.</span>τ-voice Overall pass@1 by release date</div>
+            <div class="progress-card-title"><span class="fig-num" style="margin-right:8px; vertical-align:2px;">Fig 3</span>τ-voice Overall pass@1 by release date</div>
             <div class="progress-card-sub">Pass@1 on τ-voice · overall · plotted at each model's public release date. 7 models. Text reference lines from the τ-bench text leaderboard.</div>
           </div>
         </div>
@@ -671,7 +745,7 @@
       <p>Before zooming into the failures themselves, it helps to see how each provider's pass@1 changes when we move from <strong>Clean</strong> (single persona, no acoustic effects, strict turn-taking) to <strong>Realistic</strong> (diverse personas, environmental noise, free-form turn-taking) on the paper-era models &mdash; the absolute drop varies, but every provider takes a hit.</p>
 
       <div class="demo-block" id="provider-chart">
-        <div class="demo-label"><span class="fig-num">Fig 3</span><span class="demo-label-icon">📊</span> Clean vs Realistic by provider <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
+        <div class="demo-label"><span class="fig-num">Fig 4</span><span class="demo-label-icon">📊</span> Clean vs Realistic by provider <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
         <div class="pp-grouped">
 
           <div class="pp-group">
@@ -734,7 +808,7 @@
       <p>Knowing each provider takes a hit is one thing; knowing <em>which mistakes</em> drive the hit is another. Two annotators labelled every failed simulation in two analysis cohorts &mdash; <strong>Voice-Fragile</strong> (tasks the text models pass but voice-Clean models fail) and <strong>Noise-Fragile</strong> (tasks voice-Clean passes but voice-Realistic fails) &mdash; tagging both the source and type of the first critical error.</p>
 
       <div class="demo-block" id="error-analysis">
-        <div class="demo-label"><span class="fig-num">Fig 4</span><span class="demo-label-icon">🔬</span> Manual error analysis &nbsp;·&nbsp; 91 failed simulations <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
+        <div class="demo-label"><span class="fig-num">Fig 5</span><span class="demo-label-icon">🔬</span> Manual error analysis &nbsp;·&nbsp; 91 failed simulations <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
         <div class="ea-cohort">
           <div class="ea-cohort-title">Voice-Fragile cohort &mdash; 43 failures</div>
           <div class="ea-cohort-sub">Tasks both text models pass, but a majority of voice-Clean providers fail. Isolates the cost of going voice-native.</div>
@@ -803,7 +877,7 @@
       <h3>The four failure modes that matter most</h3>
 
       <div class="demo-block" id="failure-modes">
-        <div class="demo-label"><span class="fig-num">Fig 5</span><span class="demo-label-icon">📋</span> Recurring failure patterns</div>
+        <div class="demo-label"><span class="fig-num">Fig 6</span><span class="demo-label-icon">📋</span> Recurring failure patterns</div>
         <div class="fm-grid">
           <div class="fm-card">
             <div class="fm-card-head">
@@ -849,7 +923,7 @@
       <p>To quantify how much each part of "realistic" contributes to the failure modes above, we ran ablations on the retail domain &mdash; adding background noise, diverse accents, and turn-taking dynamics one factor at a time, on top of an otherwise clean condition.</p>
 
       <div class="demo-block" id="ablation-chart">
-        <div class="demo-label"><span class="fig-num">Fig 6</span><span class="demo-label-icon">🧪</span> Ablation &nbsp;·&nbsp; impact of each factor on Retail pass@1 <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
+        <div class="demo-label"><span class="fig-num">Fig 7</span><span class="demo-label-icon">🧪</span> Ablation &nbsp;·&nbsp; impact of each factor on Retail pass@1 <span class="hc-tag hc-tag-paper" style="margin-left:8px;">paper · Feb 2026</span></div>
         <div class="ab-table-wrap">
           <table class="ab-table">
             <thead>
