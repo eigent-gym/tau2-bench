@@ -412,9 +412,9 @@ def style_axis(ax, grid: bool = True) -> None:
 
 
 SHORT_MODEL_NAMES: dict[str, str] = {
-    "gemini-live-2.5-flash-native-audio": "Gemini 2.5 Flash",
-    "gpt-realtime-1.5": "GPT Realtime 1.5",
-    "xai-realtime": "xAI Realtime",
+    "gemini-live-2.5-flash-native-audio": "gemini-live-2.5",
+    "gpt-realtime-1.5": "gpt-realtime-1.5",
+    "xai-realtime": "grok-voice",
 }
 
 
