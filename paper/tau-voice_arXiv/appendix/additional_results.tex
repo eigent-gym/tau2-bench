@@ -1,0 +1,82 @@
+\section{Additional Experimental Results}
+\label{app:results}
+
+\subsection{Voice Interaction Quality: Full Metric Breakdown}
+\label{app:voice-metrics-detail}
+
+Table~\ref{tab:voice-quality-detail} provides the full breakdown of voice interaction metrics. Columns are grouped by: \textbf{Latency} ($L_R$ = Response Latency, $L_Y$ = Yield Latency), \textbf{Responsiveness} ($R_R$ = Response Rate, $R_Y$ = Yield Rate), \textbf{Interrupt} ($I_A$ = Agent Interruption Rate), and \textbf{Selectivity} ($S_{BC}$ = Backchannel Correct, $S_{VT}$ = Vocal Tic Correct, $S_{ND}$ = Non-Directed Correct). For $L_R$, $R_R$, and $I_A$, separate columns show Clean (C) and Realistic (R) speech conditions; other metrics are evaluated on Realistic only.
+
+\begin{table*}[h]
+\caption{Voice interaction quality metrics---full breakdown (Realistic condition). \textbf{Bold} indicates best per domain. $\uparrow$ = higher is better, $\downarrow$ = lower is better.}
+\label{tab:voice-quality-detail}
+\centering
+\begin{small}
+\resizebox{\textwidth}{!}{%
+\input{results/full_voice_quality_table}
+}
+\end{small}
+\end{table*}
+
+
+
+\subsection{Qualitative Error Analysis}
+\label{app:qualitative-analysis}
+
+We conducted a qualitative analysis of task failures to understand error sources and types. We annotated all failed simulations from two analysis cohorts: (1) Voice-Fragile (43 simulations across 20 tasks passing in text but failing in Clean audio), and (2) Noise-Fragile (48 simulations across 19 tasks passing in Clean but failing in Realistic audio).
+
+\paragraph{Qualitative Annotations.}
+Table~\ref{tab:full-notes-both} shows the qualitative annotations for each failed simulation.
+
+\begin{table*}[h]
+\caption{Qualitative error annotations for task completion failures. Left: Voice-Fragile cohort (43 simulations from Clean audio setting). Right: Noise-Fragile cohort (48 simulations from Realistic audio setting).}
+\label{tab:full-notes-both}
+\centering
+\begin{small}
+\begin{minipage}{0.48\textwidth}
+\centering
+\textbf{Voice-Fragile}\\[0.5em]
+\input{results/full_notes_text_vs_clean_audio}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\centering
+\textbf{Noise-Fragile}\\[0.5em]
+\input{results/full_notes_clean_vs_realistic_audio}
+\end{minipage}
+\end{small}
+\end{table*}
+
+\paragraph{Error Type Definitions.}
+We categorize errors into six types based on observed failure patterns:
+
+\begin{itemize}[nosep,leftmargin=*]
+    \item \textbf{Logical} (Agent or User): Reasoning or execution errors, including incorrect tool call arguments/formatting, taking wrong actions (cancelling/modifying wrong items), failing to follow instructions (not asking for spelling, not confirming), or losing track of conversation state.
+    
+    \item \textbf{Transcription} (Agent): Speech-to-text errors where the agent incorrectly transcribes user speech, most commonly during authentication when users spell names/emails letter-by-letter, or when transcribing specific user requests.
+    
+    \item \textbf{Hallucination} (Agent or User): Agent fabricates information (e.g., inventing item IDs, hallucinating order details) or user simulator states information not present in the task instructions.
+    
+    \item \textbf{VAD/Unresponsive} (Agent): Voice Activity Detection errors where the agent fails to detect user speech, or agent goes silent for an extended period despite multiple user check-ins.
+    
+    \item \textbf{Timeout} (Agent): Agent could not resolve the call within the 10-minute simulation limit, typically due to being too slow or verbose.
+    
+    \item \textbf{Early Termination} (User): User ends the call prematurely before the task is fully completed, often due to ambiguous communication where user assumes the task is done when it is not.
+\end{itemize}
+
+\subsection{Statistical Reliability Analysis}
+\label{app:stat-sig}
+
+To assess statistical reliability, we conducted 2 independent runs per condition on the Retail domain (n=114 tasks per run, 228 simulations per condition). We use paired permutation tests rather than trial-level confidence intervals: for each pair of conditions, we compute per-task mean success rates, pair observations by task ID (114 paired observations), and test whether the paired differences are systematically non-zero (100k permutations, two-sided). P-values are Holm-Bonferroni corrected within each provider group to control for multiple comparisons. Because rates are pooled across both runs, they may differ slightly from the single-run rates reported in the main results.
+
+\begin{table}[h]
+\caption{Pairwise statistical significance for Retail domain (2 runs, n=114 tasks each). Text (NR) = GPT-4.1; Text (R) = GPT-5. All $p$-values are Holm-Bonferroni corrected paired permutation tests.}
+\label{tab:stat-sig}
+\centering
+\begin{small}
+\input{results/stat_sig_table}
+\end{small}
+\end{table}
+
+Table~\ref{tab:stat-sig} confirms that both key gaps are statistically significant: (1) the text-to-Clean gap---all providers show significant drops from both text baselines ($p < 0.05$), including the narrowest gap between GPT-4.1 (76.3\%) and OpenAI Clean (67.5\%, $\Delta = -8.8$pp, $p = 0.032$); and (2) the Clean-to-Realistic gap---all three providers show significant degradation (Google $\Delta = -13.2$pp, $p = 0.026$; OpenAI $\Delta = -24.6$pp, $p < 0.001$; xAI $\Delta = -13.2$pp, $p = 0.044$).
+
+\paragraph{Provider Comparisons.} Under Clean conditions, OpenAI (67.5\%) is clearly separated from xAI (50.0\%) and Google (42.1\%). Under Realistic conditions, OpenAI remains strongest (43.0\%), followed by xAI (36.8\%) and Google (28.9\%). The full set of pairwise comparisons across all five speech complexity conditions (Clean, Audio-only, Accents-only, Behavior-only, and Realistic) is available in the supplementary materials.

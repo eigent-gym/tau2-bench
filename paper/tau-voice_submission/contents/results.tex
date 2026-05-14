@@ -1,0 +1,87 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Quantitative Results}
+
+\subsubsection{Task Completion}
+
+Figure~\ref{fig:headline} and Table~\ref{tab:text-control-regular} present our headline finding: \textbf{voice agents show substantial drops from text baselines}. Under \textbf{Clean} conditions (studio-quality audio, American accents), the best voice provider already drops 38pp from GPT-5 (42\% vs GPT-5 at 80\%). Under \textbf{Realistic} conditions (background noise, diverse accents, natural user behaviors), performance drops an additional 12pp to 30\%. This gap persists even against non-reasoning text models: compared to GPT-4.1 (54\%), voice still drops 12pp (Clean) to 24pp (Realistic).
+
+\begin{table}[h]
+\caption{Text vs Voice comparison (pass@1). Text shows GPT-5 (reasoning) and GPT-4.1 (non-reasoning). Voice evaluated under Clean and Realistic conditions. Deltas show gap from GPT-5.}
+\label{tab:text-control-regular}
+\centering
+\begin{small}
+\resizebox{\columnwidth}{!}{%
+\input{results/combined_comparison_table}
+}
+\end{small}
+\end{table}
+
+The 12pp drop from Clean to Realistic conditions accounts for roughly one-quarter of the total voice-text gap; the remaining three-quarters reflects the drop from text to Clean voice.
+
+Across providers, \textbf{xAI achieves the highest scores} (42\% Clean, 30\% Realistic), while \textbf{Google shows the smallest degradation} under realistic conditions ($-$5pp vs $-$12--14pp for others). Domain-specific patterns emerge: xAI substantially outperforms others in Telecom (59\% Clean vs 20--24\% for others), while performance is more similar across providers in Retail and Airline.
+
+\paragraph{Statistical Reliability.} For Retail, where we conducted 3 independent runs per condition, both the text-to-Clean gap and the Clean-to-Realistic gap are statistically significant (non-overlapping 95\% CIs). Voice providers achieve 36--39\% $\pm$ 3--6pp (Clean) and 12--26\% $\pm$ 2--4pp (Realistic), compared to text baselines of 73\% $\pm$ 3pp (GPT-4.1) and 82\% $\pm$ 1pp (GPT-5). Full statistical breakdown in Appendix~\ref{app:stat-sig}.
+
+\subsubsection{Impact of Acoustic Realism}
+
+To isolate which factors hurt performance most, we conduct ablations on the Retail domain, adding noise, accents, or user behaviors independently (Table~\ref{tab:ablation-single}).
+
+\input{results/ablation_table_single}
+
+\textbf{Accents are the most damaging factor}, causing a 13pp average drop (vs 9pp for noise, 5pp for interrupts). This finding has accessibility implications: users with non-American accents may face systematically worse service. OpenAI and xAI are particularly vulnerable to accents ($-$18pp each), while Google shows greater robustness ($-$2pp). Because accents are implemented via TTS personas, these results should be interpreted as indicative rather than definitive.
+
+\textbf{Google is consistently the most robust provider} across individual ablation conditions, with minimal degradation from noise ($-$2pp) or interrupts ($-$1pp). However, Google's robustness to isolated factors does not fully transfer to compound stress: individual effects sum to just $-$5pp, yet the full Realistic condition causes $-$11pp---suggesting super-additive interactions when multiple factors combine. This 11pp drop still compares favorably to 22--24pp for competitors.
+
+\subsubsection{Voice Interaction Quality}
+
+Beyond task completion, we evaluate conversational dynamics under Realistic conditions (Table~\ref{tab:voice-quality}). We report four aggregate dimensions: \textbf{Latency} (how quickly agents react), \textbf{Responsiveness} (whether agents act when needed), \textbf{Interrupt} (how often agents cut off users mid-speech), and \textbf{Selectivity} (whether agents correctly ignore signals that do not require action).
+
+\begin{table}[h]
+\caption{Voice interaction quality (Realistic condition, aggregated across domains). \textbf{Bold} indicates best. Full breakdown in Appendix~\ref{app:voice-metrics-detail}.}
+\label{tab:voice-quality}
+\centering
+\begin{small}
+\resizebox{\columnwidth}{!}{%
+\input{results/voice_quality_aggregated_table}
+}
+\end{small}
+\end{table}
+
+\textbf{xAI achieves the best latency and responsiveness}: fastest reactions (0.99s average latency) and highest responsiveness (85\%). However, this speed comes at a severe cost: xAI has an interrupt rate of 104\%---interrupting users more than once per turn on average.
+
+\textbf{OpenAI shows the opposite trade-off}: slowest latency (2.22s) and lowest responsiveness (68\%), but highest selectivity (74\%) and a moderate interrupt rate (34\%). OpenAI is more conservative, waiting longer to ensure genuine user intent before responding.
+
+\textbf{Google achieves the best balance}: lowest interrupt rate (24\%), reasonable latency (1.13s), and mid-range selectivity (51\%), though with lower responsiveness (71\%). No provider achieves both high responsiveness and low interruption, highlighting the fundamental challenge of real-time turn-taking.
+
+\subsection{Qualitative Error Analysis}
+\label{sec:analysis}
+
+To characterize failure modes beyond aggregate pass rates---and to verify that observed failures stem from agent behavior rather than artifacts of the benchmark or user simulator---we perform a qualitative error analysis.
+
+\paragraph{Task Selection.} We define $\text{pass}_{\text{text}}$ as tasks where both GPT-4.1 and GPT-5.2 (medium reasoning) succeed in text mode, $\text{pass}_{\text{clean}}$ as tasks where a majority of audio providers succeed under Clean conditions, and $\text{pass}_{\text{realistic}}$ as tasks where a majority succeed under Realistic conditions. We construct two analysis cohorts:
+\begin{itemize}[nosep,leftmargin=*]
+    \item \textbf{Voice-Fragile}: Tasks that satisfy $\text{pass}_{\text{text}}$ but not $\text{pass}_{\text{clean}}$, isolating inherent voice interaction challenges.
+    \item \textbf{Noise-Fragile}: Tasks that satisfy $\text{pass}_{\text{clean}}$ but not $\text{pass}_{\text{realistic}}$, isolating the impact of acoustic realism (noise, accents, interruptions).
+\end{itemize}
+For each cohort, we sample 20 tasks, prioritizing those exhibiting the largest performance gap between conditions. For each sampled task, we randomly select one failing provider for analysis.
+
+\paragraph{Annotation Procedure.} Two independent raters examined each failed simulation, labeling: (1) \textit{error source}---whether the agent or user simulator caused the first critical error; and (2) \textit{error type}---one of logical, transcription, VAD/unresponsive, hallucination, or early termination. Inter-rater agreement was 92.5\% (37/40 tasks); disagreements were resolved through discussion.
+
+\paragraph{Results.} Table~\ref{tab:combined-error-analysis} shows the distribution of error types by source for both cohorts. Full annotations are in Appendix~\ref{app:qualitative-analysis}.
+
+\begin{table}[h]
+\caption{Error analysis: distribution of error types by source. Agent errors dominate in both cohorts (75\% and 90\%).}
+\label{tab:combined-error-analysis}
+\centering
+\begin{small}
+\resizebox{0.85\columnwidth}{!}{%
+\input{results/combined_error_analysis}
+}
+\end{small}
+\end{table}
+
+\textbf{Agent errors dominate}: 75\% of failures in the Voice-Fragile cohort and 90\% in the Noise-Fragile cohort are attributed to the agent rather than the user simulator---suggesting that observed failures primarily reflect agent behavior under our evaluation setup, not simulator artifacts.
+
+\textbf{Logical errors are most common in the Voice-Fragile cohort} (8/20), indicating that voice agents struggle with reasoning even when transcription is accurate. However, \textbf{VAD/unresponsive errors become dominant in the Noise-Fragile cohort} (8/20), where background noise and interruptions cause agents to miss user utterances or become unresponsive.

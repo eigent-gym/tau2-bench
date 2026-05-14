@@ -1,0 +1,24 @@
+\begin{tabular}{@{}llccc@{}}
+\toprule
+ &  &  & \multicolumn{2}{c}{\textbf{Voice}} \\
+\cmidrule(l){4-5}
+\textbf{Domain} & \textbf{Provider} & \textbf{Text} & \textbf{Clean} & \textbf{Realistic} \\
+\midrule
+\multirow{3}{*}{All} & Google & \multirow{3}{*}{79\% (54\%)} & 29\% (-50) & 24\% (-55) \\
+ & OpenAI &  & 33\% (-46) & 19\% (-60) \\
+ & xAI &  & \textbf{42\% (-37)} & \textbf{30\% (-49)} \\
+\midrule
+\multirow{3}{*}{Retail} & Google & \multirow{3}{*}{81\% (74\%)} & 39\% (-42) & \textbf{28\% (-53)} \\
+ & OpenAI &  & 39\% (-42) & 15\% (-65) \\
+ & xAI &  & \textbf{42\% (-39)} & 20\% (-61) \\
+\midrule
+\multirow{3}{*}{Airline} & Google & \multirow{3}{*}{62\% (56\%)} & 28\% (-34) & 26\% (-36) \\
+ & OpenAI &  & \textbf{36\% (-26)} & 28\% (-34) \\
+ & xAI &  & 26\% (-36) & \textbf{34\% (-28)} \\
+\midrule
+\multirow{3}{*}{Telecom} & Google & \multirow{3}{*}{95\% (34\%)} & 20\% (-75) & 19\% (-76) \\
+ & OpenAI &  & 23\% (-72) & 14\% (-81) \\
+ & xAI &  & \textbf{58\% (-37)} & \textbf{36\% (-59)} \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize \textit{Text column: GPT-5, reasoning (GPT-4.1, best non-reasoning model). Deltas relative to GPT-5.}} \\
+\end{tabular}

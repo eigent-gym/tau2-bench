@@ -1,0 +1,47 @@
+\section{Introduction}
+\label{sec:intro}
+
+The next frontier in conversational AI is \textbf{full-duplex voice interaction}---natural spoken conversations where systems listen and speak simultaneously, handle interruptions gracefully, and make real-time turn-taking decisions~\citep{gartner_conversational_ai_2024, gartner_agentic_ai_2025, moore_ai_voice_2025}. Unlike turn-based interactions where users speak, wait, and speak again, full-duplex systems operate in continuous time without explicit turn boundaries.
+
+A new generation of \textbf{audio-native language models} enables this vision, processing speech end-to-end without intermediate transcription. Customer service is a primary application: voice remains the preferred channel for complex issues where customers need to explain nuanced problems or resolve urgent matters.
+
+Existing work evaluates whether these models can hold a conversation---but can they \textit{simultaneously} process a return, modify an order, or resolve a billing dispute, with the reliability we expect from text-based agents?
+
+\subsection{Why End-to-End Evaluation Matters}
+
+Voice agents must excel at two capabilities: \textbf{task completion} (reasoning about requests, calling tools correctly, modifying database state) and \textbf{conversation management} (turn-taking, interruptions, backchanneling in continuous time). Existing benchmarks evaluate each in isolation: \taubench{} and \tautwobench{}~\citep{yao_-bench_2024, barres_2-bench_2025} measure tool use on realistic customer service tasks but in text-only, turn-based settings; Full-Duplex-Bench and its v2~\citep{lin_full-duplex-bench_2025, lin_full-duplex-bench-v2_2025} evaluate turn-taking and interruptions but on synthetic tasks without real tool calls (\S\ref{sec:related}). What remains unexplored is evaluating both together: voice interaction grounded in consequential tasks.
+
+Voice compounds task difficulty in ways text does not. Speech lacks punctuation, contains fillers and disfluencies, and requires verbally encoding special characters. The \textit{audio environment} (background noise, accents, telephony compression) introduces errors that propagate across turns. Real-time \textit{conversational dynamics} (interruptions, backchannels, turn-taking) demand that agents respond fluidly without long silences.
+
+Consider:
+
+\begin{quote}
+\textit{A customer calls to make changes to their account. Due to background noise and an unfamiliar accent, the agent mishears their name and authentication fails. Does the agent ask them to spell it? If the customer spells it out, does the agent transcribe it correctly despite the noise? If so, does it fix the authentication tool call---or does it make a mistake in combining the information spread across the turns?}
+\end{quote}
+
+Such failures cannot be captured by evaluating ASR, dialogue state tracking, and tool use separately. They also pose \textbf{accessibility concerns}: users with non-standard accents, speech impediments, or noisy environments may be systematically underserved by voice agents that perform well only under ideal conditions.
+
+\subsection{Our Contributions}
+
+We present \textbf{\tauvoice{}}, extending \tautwobench{} to full-duplex voice interaction:
+
+\begin{enumerate}
+    \item \textbf{A voice agent benchmark combining verifiable completion of complex grounded tasks, full-duplex interaction, and realistic audio.} Existing benchmarks evaluate these dimensions in isolation (\S\ref{sec:related}). \tauvoice{} is the first to combine all three and enables direct comparison between voice and text agent performance on grounded tasks.
+    
+    \item \textbf{Controllable and realistic voice user simulator.} A voice user simulator with diverse accents, realistic audio environments, and rich turn-taking dynamics. By decoupling simulation time from wall-clock time, our user simulator can use the most capable LLM without real-time constraints, ensuring reliable instruction following and turn-taking decisions.
+    
+    \item \textbf{Empirical findings.} We benchmark Google, OpenAI, and xAI, ablating acoustic factors (noise, accents, user behaviors). Figure~\ref{fig:headline} summarizes our headline result:
+    \begin{itemize}[nosep,leftmargin=1em]
+        \item \textit{A large voice-text gap remains}: Even under Clean conditions (clean audio, no interruptions), voice agents achieve only 29--42\% vs 80\% GPT-5 (reasoning)---a 38--51pp gap.
+        \item \textit{Realistic audio exacerbates the gap}: Under Realistic conditions (noise, accents, user behaviors), performance falls further to 19--30\%. Among factors, accents hurt most ($-$13pp), with potential accessibility implications.
+        \item \textit{Provider trade-offs}: Google handles individual factors well ($-$5pp combined) but compounds under full Realistic conditions ($-$11pp). For turn-taking, xAI achieves best latency (0.99s) and responsiveness (85\%) but interrupts users on average once per turn; OpenAI has best selectivity (74\%) but worst latency (2.22s). No provider masters both task completion and conversational dynamics.
+        \item \textit{Failures are primarily agent errors}: Qualitative analysis of 40 failed tasks confirms that 75--90\% of failures stem from agent behavior, suggesting that observed failures primarily reflect agent behavior under our evaluation setup.
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\columnwidth]{results/pass_1_headline_simple.pdf}
+\caption{Task completion (pass@1) averaged across all domains. GPT-5 (reasoning) achieves 80\%. Voice agents show two levels of degradation: under \textbf{Clean} conditions (clean audio, no interruptions), performance drops to 29--42\% ($-$38 to $-$51pp); under \textbf{Realistic} conditions (realistic audio, interruptions), it falls further to 19--30\% ($-$50 to $-$61pp from text).}
+\label{fig:headline}
+\end{figure}

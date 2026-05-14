@@ -1,0 +1,22 @@
+\begin{tabular}{@{}ll|ccc|ccc@{}}
+\toprule
+ & & \multicolumn{3}{c|}{\textbf{Control}} & \multicolumn{3}{c}{\textbf{Regular}} \\
+\textbf{Domain} & \textbf{Model} & $L_R\downarrow$ & $R_R\uparrow$ & $I_A\downarrow$ & $L_R\downarrow$ & $R_R\uparrow$ & $I_A\downarrow$ \\
+\midrule
+\multirow{3}{*}{All} & Google & 1.40s & 96\% & 7\% & 1.43s & 81\% & 21\% \\
+ & OpenAI & 1.69s & \textbf{99\%} & \textbf{1\%} & 1.39s & \textbf{100\%} & \textbf{14\%} \\
+ & xAI & \textbf{1.05s} & 92\% & 44\% & \textbf{1.15s} & 91\% & 84\% \\
+\midrule
+\multirow{3}{*}{Retail} & Google & 1.50s & 96\% & 6\% & 1.45s & 79\% & 17\% \\
+ & OpenAI & 1.81s & \textbf{99\%} & \textbf{1\%} & 1.39s & \textbf{100\%} & \textbf{15\%} \\
+ & xAI & \textbf{1.09s} & 84\% & 29\% & \textbf{1.12s} & 91\% & 77\% \\
+\midrule
+\multirow{3}{*}{Airline} & Google & 1.40s & 95\% & 6\% & 1.46s & 80\% & 19\% \\
+ & OpenAI & 1.79s & \textbf{99\%} & \textbf{1\%} & 1.43s & \textbf{100\%} & \textbf{14\%} \\
+ & xAI & \textbf{1.08s} & 93\% & 62\% & \textbf{1.18s} & 91\% & 83\% \\
+\midrule
+\multirow{3}{*}{Telecom} & Google & 1.28s & 96\% & 8\% & 1.38s & 82\% & 26\% \\
+ & OpenAI & 1.48s & \textbf{100\%} & \textbf{1\%} & 1.35s & \textbf{100\%} & \textbf{12\%} \\
+ & xAI & \textbf{0.98s} & 99\% & 39\% & \textbf{1.16s} & 93\% & 93\% \\
+\bottomrule
+\end{tabular}

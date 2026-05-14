@@ -1,0 +1,8 @@
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/task_41_data/speech activity timeline.pdf}
+\caption{Speech activity timeline from a Retail domain simulation with Gemini Live. A customer calls about exchanging a jigsaw puzzle and correcting their address. The legend distinguishes \textit{observations} (User Int.\ = user interruption, Non-Agent Dir.\ = speech to someone other than the agent, Burst = environmental burst noise) from \textit{evaluation markers} (Agent Int.\ = agent interruption, BC Issue = incorrect backchannel handling, Voc.\ Tic Error / Non-Agent Dir.\ Error = agent incorrectly yielding or responding to these stimuli).}
+\label{fig:speech-timeline}
+\end{figure*}
+
+\paragraph{Timeline Walkthrough.}  Figure~\ref{fig:speech-timeline} illustrates our evaluation on a 3-minute Retail conversation with street noise. Key phenomena include: agent interruptions (red $\blacktriangle$) revealing turn-taking calibration; user interruptions where the agent yields but fails to respond (no-response error $\times$); non-agent-directed speech (pink \ldots) where the agent incorrectly yields; and backchannels (green $\circ$) correctly recognized as acknowledgment. Audio degradation (frame drops, muffling, burst noise) tests acoustic robustness throughout. This single example contains 8 user interruptions, 5 agent interruptions, 2 no-response errors, and 12 frame drops---illustrating the complexity our metrics capture (full transcript in Appendix~\ref{app:examples}).

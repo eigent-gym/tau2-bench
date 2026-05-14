@@ -1,0 +1,11 @@
+category,setting,control,control_enabled,control_audio,control_audio_enabled,control_accents,control_accents_enabled,control_behavior,control_behavior_enabled,control_audio_accents,control_audio_accents_enabled,control_audio_behavior,control_audio_behavior_enabled,control_accents_behavior,control_accents_behavior_enabled,regular,regular_enabled
+Accents,Personas,American,False,American,False,Diverse accents,True,American,False,Diverse accents,True,American,False,Diverse accents,True,Diverse accents,True
+Audio/Channel,Background noise,None,False,Indoor/outdoor,True,None,False,None,False,Indoor/outdoor,True,Indoor/outdoor,True,None,False,Indoor/outdoor,True
+Audio/Channel,Burst noise,None,False,~1/min,True,None,False,None,False,~1/min,True,~1/min,True,None,False,~1/min,True
+Audio/Channel,Frame drops,None,False,~0.5% (G-E model),True,None,False,None,False,~0.5% (G-E model),True,~0.5% (G-E model),True,None,False,~2.0% (G-E model),True
+Audio/Channel,Telephony,G.711 μ-law 8kHz,True,G.711 μ-law 8kHz,True,G.711 μ-law 8kHz,True,G.711 μ-law 8kHz,True,G.711 μ-law 8kHz,True,G.711 μ-law 8kHz,True,G.711 μ-law 8kHz,True,G.711 μ-law 8kHz,True
+Audio/Channel,Muffling,None,False,Dynamic,True,None,False,None,False,Dynamic,True,Dynamic,True,None,False,Dynamic,True
+User Behavior,Involuntary sounds,None,False,None,False,None,False,"Coughs, sneezes",True,None,False,"Coughs, sneezes",True,"Coughs, sneezes",True,"Coughs, sneezes",True
+User Behavior,Non agent-directed speech,None,False,None,False,None,False,"""hold on"", ""one sec""",True,None,False,"""hold on"", ""one sec""",True,"""hold on"", ""one sec""",True,"""hold on"", ""one sec""",True
+User Behavior,Interruptions,None,False,None,False,None,False,LLM-based,True,None,False,LLM-based,True,LLM-based,True,LLM-based,True
+User Behavior,Backchanneling,None,False,None,False,None,False,LLM-based,True,None,False,LLM-based,True,LLM-based,True,LLM-based,True

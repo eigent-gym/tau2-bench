@@ -1,0 +1,28 @@
+\begin{table}[h]
+\caption{Voice vs Text comparison (pass@1). Text baseline: GPT-5.2. Voice uses Realistic condition. $\Delta$ = Voice $-$ Text.}
+\label{tab:voice-vs-text}
+\centering
+\begin{small}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+\textbf{Domain} & \textbf{Model} & \textbf{Text} & \textbf{Voice} & \textbf{$\Delta$} & \textbf{$\Delta_{\%}$} \\
+\midrule
+\multirow{3}{*}{All} & Google & \multirow{3}{*}{85\%} & 26\% & $-$59\% & $-$69.5\% \\
+ & OpenAI &  & 35\% & $-$49\% & $-$58.4\% \\
+ & xAI &  & \textbf{38\%} & $-$46\% & $-$54.7\% \\
+\midrule
+\multirow{3}{*}{Retail} & Google & \multirow{3}{*}{81\%} & 30\% & $-$51\% & $-$63.2\% \\
+ & OpenAI &  & \textbf{45\%} & $-$36\% & $-$44.8\% \\
+ & xAI &  & 39\% & $-$42\% & $-$52.4\% \\
+\midrule
+\multirow{3}{*}{Airline} & Google & \multirow{3}{*}{83\%} & 30\% & $-$53\% & $-$63.9\% \\
+ & OpenAI &  & \textbf{40\%} & $-$43\% & $-$51.8\% \\
+ & xAI &  & 36\% & $-$47\% & $-$56.6\% \\
+\midrule
+\multirow{3}{*}{Telecom} & Google & \multirow{3}{*}{90\%} & 18\% & $-$72\% & $-$80.5\% \\
+ & OpenAI &  & 21\% & $-$69\% & $-$76.6\% \\
+ & xAI &  & \textbf{40\%} & $-$50\% & $-$55.2\% \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{table}

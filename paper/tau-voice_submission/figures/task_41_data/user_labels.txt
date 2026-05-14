@@ -1,0 +1,17 @@
+5.200	24.000	Hi, I have two problems. First, I ordered a 1000-piece intermediate jigsaw, but I think it’s too hard for my kid—can I switch it to the easiest one with the fewest pieces? Second, I might have type...
+33.800	35.800	I don’t remember my email.
+41.800	46.600	Yeah. First name: M, E, I. Last name: P
+53.000	58.600	A, T, E, L. Zip code: seven, six, one, six, five.
+67.800	69.200	Jigsaw first.
+74.400	77.000	Can you switch it to the easiest puzzle?
+84.400	85.400	Yes, the one wi
+93.800	96.200	No, I don’t know the item ID.
+102.400	106.800	I just remember it’s the 1000-piece intermediate jigsaw.
+113.800	114.600	Yeah, that’s it.
+121.800	123.000	mm-hmm
+128.200	129.800	Yes, please.
+135.000	137.000	Now, can we check my address?
+145.800	149.400	No, it should be four, four, five, Maple Drive.
+155.800	159.200	Can you make sure all my orders use that address too?
+170.200	171.600	Yes, update it.
+179.400	179.600	No, that’s all. Thanks. ###STOP###

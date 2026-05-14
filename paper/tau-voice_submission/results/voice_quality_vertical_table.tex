@@ -1,0 +1,24 @@
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Metric} & \textbf{Google} & \textbf{OpenAI} & \textbf{xAI} \\
+\midrule
+\multicolumn{4}{l}{\textit{Latency}} \\
+$L_R$ (C) & 1.36s & 3.65s & \textbf{0.90s} \\
+$L_R$ (R) & 1.44s & 3.24s & \textbf{0.99s} \\
+$L_Y$ & \textbf{0.82s} & 1.20s & 1.00s \\
+\midrule
+\multicolumn{4}{l}{\textit{Responsiveness}} \\
+$R_R$ (C) & \textbf{98\%} & 89\% & 95\% \\
+$R_R$ (R) & 86\% & 77\% & \textbf{90\%} \\
+$R_Y$ & 57\% & 59\% & \textbf{79\%} \\
+\midrule
+\multicolumn{4}{l}{\textit{Interrupt}} \\
+$I_A$ (C) & \textbf{9\%} & 40\% & 49\% \\
+$I_A$ (R) & \textbf{24\%} & 34\% & 104\% \\
+\midrule
+\multicolumn{4}{l}{\textit{Selectivity}} \\
+$S_{BC}$ & 90\% & \textbf{95\%} & 81\% \\
+$S_{VT}$ & 34\% & \textbf{71\%} & 53\% \\
+$S_{ND}$ & 30\% & \textbf{57\%} & 20\% \\
+\bottomrule
+\end{tabular}

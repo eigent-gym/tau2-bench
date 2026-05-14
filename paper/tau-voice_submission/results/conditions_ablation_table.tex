@@ -1,0 +1,27 @@
+\begin{table}[h]
+\caption{Speech complexity conditions by ablation. Columns: Cln=Clean, +N=Noise, +A=Accents, +I=Interrupts, +NA/NI/AI=pairwise combinations, Real=Realistic (all effects).}
+\label{tab:conditions-ablation}
+\centering
+\begin{small}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llcccccccc}
+\toprule
+\textbf{Category} & \textbf{Setting} & \textbf{Cln} & \textbf{+N} & \textbf{+A} & \textbf{+I} & \textbf{+NA} & \textbf{+NI} & \textbf{+AI} & \textbf{Real} \\
+\midrule
+\multirow{1}{*}{Accents} & Personas &  &  & \checkmark &  & \checkmark &  & \checkmark & \checkmark \\
+\midrule
+\multirow{5}{*}{Audio/Channel} & Background noise &  & \checkmark &  &  & \checkmark & \checkmark &  & \checkmark \\
+ & Burst noise &  & \checkmark &  &  & \checkmark & \checkmark &  & \checkmark \\
+ & Frame drops &  & \checkmark &  &  & \checkmark & \checkmark &  & \checkmark \\
+ & Telephony & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+ & Muffling &  & \checkmark &  &  & \checkmark & \checkmark &  & \checkmark \\
+\midrule
+\multirow{4}{*}{User Behavior} & Involuntary sounds &  &  &  & \checkmark &  & \checkmark & \checkmark & \checkmark \\
+ & Non agent-directed speech &  &  &  & \checkmark &  & \checkmark & \checkmark & \checkmark \\
+ & Interruptions &  &  &  & \checkmark &  & \checkmark & \checkmark & \checkmark \\
+ & Backchanneling &  &  &  & \checkmark &  & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}%
+}
+\end{small}
+\end{table}

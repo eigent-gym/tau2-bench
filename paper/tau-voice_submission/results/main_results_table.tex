@@ -1,0 +1,28 @@
+\begin{table}[h]
+\caption{Task completion (pass@1) by provider, domain, and condition. \textbf{Bold} indicates best per domain/condition.}
+\label{tab:main-results}
+\centering
+\begin{small}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Domain} & \textbf{Provider} & \textbf{Control} & \textbf{Realistic} & \textbf{$\Delta$} \\
+\midrule
+\multirow{3}{*}{All (278)} & Google & 29\% & 24\% & $-$4\% \\
+ & OpenAI & 33\% & 19\% & $-$13\% \\
+ & xAI & \textbf{42\%} & \textbf{30\%} & $-$12\% \\
+\midrule
+\multirow{3}{*}{Retail (114)} & Google & 39\% & \textbf{28\%} & $-$11\% \\
+ & OpenAI & 39\% & 15\% & $-$23\% \\
+ & xAI & \textbf{42\%} & 20\% & $-$21\% \\
+\midrule
+\multirow{3}{*}{Airline (50)} & Google & 28\% & 26\% & $-$2\% \\
+ & OpenAI & \textbf{36\%} & 28\% & $-$7\% \\
+ & xAI & 26\% & \textbf{34\%} & +8\% \\
+\midrule
+\multirow{3}{*}{Telecom (114)} & Google & 20\% & 19\% & +0\% \\
+ & OpenAI & 23\% & 14\% & $-$9\% \\
+ & xAI & \textbf{58\%} & \textbf{36\%} & $-$22\% \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{table}

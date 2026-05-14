@@ -1,0 +1,22 @@
+\begin{tabular}{@{}ll|cc|cc|c|ccc@{}}
+\toprule
+ & & \multicolumn{2}{c|}{\textbf{Latency}$\downarrow$} & \multicolumn{2}{c|}{\textbf{Responsiveness}$\uparrow$} & \textbf{Interrupt}$\downarrow$ & \multicolumn{3}{c}{\textbf{Selectivity}$\uparrow$} \\
+\textbf{Domain} & \textbf{Provider} & $L_R$ & $L_Y$ & $R_R$ & $R_Y$ & $I_A$ & $S_{BC}$ & $S_{VT}$ & $S_{ND}$ \\
+\midrule
+\multirow{3}{*}{All} & Google & 1.44s & \textbf{0.82s} & 86\% & 57\% & \textbf{24\%} & 90\% & 34\% & 30\% \\
+ & OpenAI & 3.24s & 1.20s & 77\% & 59\% & 34\% & \textbf{95\%} & \textbf{71\%} & \textbf{57\%} \\
+ & xAI & \textbf{0.99s} & 1.00s & \textbf{90\%} & \textbf{79\%} & 104\% & 81\% & 53\% & 20\% \\
+\midrule
+\multirow{3}{*}{Retail} & Google & 1.52s & \textbf{0.78s} & 85\% & 59\% & \textbf{28\%} & 80\% & 35\% & 37\% \\
+ & OpenAI & 2.94s & 1.06s & 78\% & 65\% & 30\% & \textbf{92\%} & \textbf{67\%} & \textbf{53\%} \\
+ & xAI & \textbf{0.93s} & 1.02s & \textbf{89\%} & \textbf{73\%} & 118\% & 82\% & 64\% & 21\% \\
+\midrule
+\multirow{3}{*}{Airline} & Google & 1.43s & \textbf{0.81s} & 87\% & 57\% & \textbf{21\%} & 90\% & 31\% & 28\% \\
+ & OpenAI & 3.39s & 1.32s & 77\% & 56\% & 39\% & \textbf{100\%} & \textbf{70\%} & \textbf{61\%} \\
+ & xAI & \textbf{1.07s} & 0.96s & \textbf{88\%} & \textbf{83\%} & 110\% & 71\% & 45\% & 27\% \\
+\midrule
+\multirow{3}{*}{Telecom} & Google & 1.36s & \textbf{0.87s} & 86\% & 53\% & \textbf{23\%} & \textbf{100\%} & 35\% & 25\% \\
+ & OpenAI & 3.38s & 1.21s & 77\% & 57\% & 32\% & 94\% & \textbf{77\%} & \textbf{58\%} \\
+ & xAI & \textbf{0.97s} & 1.01s & \textbf{93\%} & \textbf{81\%} & 85\% & 90\% & 50\% & 13\% \\
+\bottomrule
+\end{tabular}

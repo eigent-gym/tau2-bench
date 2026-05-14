@@ -1,0 +1,28 @@
+\begin{table}[h]
+\caption{Task completion (pass@1) by model, domain, and condition. \textbf{Bold} indicates best per domain/condition.}
+\label{tab:main-results}
+\centering
+\begin{small}
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Domain} & \textbf{Model} & \textbf{Control} & \textbf{Realistic} & \textbf{$\Delta$} & \textbf{$\Delta_{\%}$} \\
+\midrule
+\multirow{3}{*}{All (278)} & Google & 31\% & 26\% & $-$5\% & $-$16.7\% \\
+ & OpenAI & 49\% & 35\% & $-$14\% & $-$28.1\% \\
+ & xAI & \textbf{51\%} & \textbf{38\%} & $-$12\% & $-$24.4\% \\
+\midrule
+\multirow{3}{*}{Retail (114)} & Google & 45\% & 30\% & $-$15\% & $-$33.3\% \\
+ & OpenAI & \textbf{71\%} & \textbf{45\%} & $-$26\% & $-$37.0\% \\
+ & xAI & 48\% & 39\% & $-$10\% & $-$20.0\% \\
+\midrule
+\multirow{3}{*}{Airline (50)} & Google & 28\% & 30\% & +2\% & +7.1\% \\
+ & OpenAI & \textbf{48\%} & \textbf{40\%} & $-$8\% & $-$16.7\% \\
+ & xAI & 46\% & 36\% & $-$10\% & $-$21.7\% \\
+\midrule
+\multirow{3}{*}{Telecom (114)} & Google & 20\% & 18\% & $-$3\% & $-$13.0\% \\
+ & OpenAI & 28\% & 21\% & $-$7\% & $-$25.0\% \\
+ & xAI & \textbf{58\%} & \textbf{40\%} & $-$18\% & $-$30.3\% \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{table}

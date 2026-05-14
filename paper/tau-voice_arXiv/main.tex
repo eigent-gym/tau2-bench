@@ -1,0 +1,132 @@
+
+\documentclass{article}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs} %
+\usepackage{makecell} %
+\usepackage{multirow} %
+\usepackage{longtable} %
+\usepackage{enumitem} %
+\usepackage{listings}
+\lstset{
+  basicstyle=\small\ttfamily,
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  backgroundcolor=\color{gray!10},
+  frame=none,
+  xleftmargin=2pt,
+  xrightmargin=2pt,
+}
+\usepackage{fontawesome5} %
+
+\newcommand{\tauvoice}{$\tau$-Voice}
+\newcommand{\taubench}{$\tau$-bench}
+\newcommand{\tautwobench}{$\tau^2$-bench}
+
+\newif\ifshownotes
+\shownotestrue  %
+\newcommand{\authornote}[2]{\ifshownotes\fi}
+
+\usepackage{xcolor}
+
+
+\usepackage{hyperref}
+\usepackage{xurl}  %
+
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+
+\usepackage[preprint]{icml2026}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\usepackage[textsize=tiny]{todonotes}
+
+\icmltitlerunning{$\tau$-Voice}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{$\tau$-Voice: Benchmarking Full-Duplex Voice Agents on Real-World Domains}
+
+
+
+  \icmlsetsymbol{equal}{*}
+
+  \begin{icmlauthorlist}
+    \icmlauthor{Soham Ray}{equal,sierra}
+    \icmlauthor{Keshav Dhandhania}{equal,sierra}
+    \icmlauthor{Victor Barres}{equal,sierra}
+    \icmlauthor{Karthik Narasimhan}{princeton}
+  \end{icmlauthorlist}
+
+  \icmlaffiliation{sierra}{Sierra.ai, San Francisco, USA}
+  \icmlaffiliation{princeton}{Princeton Language and Intelligence, Princeton University}
+
+  \icmlcorrespondingauthor{Victor Barres}{victor@sierra.ai}
+
+  \icmlkeywords{Machine Learning, ICML}
+
+  \vskip 0.1in
+  \begin{center}
+  \href{https://github.com/sierra-research/tau2-bench/tree/dev/tau3}{\textcolor{black}{\faGithub~Code}}
+  \end{center}
+  \vskip 0.2in
+]
+
+
+
+\printAffiliationsAndNotice{\icmlEqualContribution, listed in reverse alphabetical order.}
+
+\begin{abstract}
+\input{contents/abstract}
+\end{abstract}
+
+
+\input{contents/intro}
+
+\input{contents/related_work}
+
+\input{contents/methods}
+
+\input{contents/experiments}
+
+\input{contents/results}
+
+\input{contents/conclusion}
+
+
+\input{contents/ack}
+
+\input{contents/impact}
+
+\bibliography{tau-voice}
+\bibliographystyle{icml2026}
+
+\newpage
+\appendix
+\onecolumn
+\input{contents/appendix}
+
+\end{document}

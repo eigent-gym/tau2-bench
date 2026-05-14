@@ -1,0 +1,15 @@
+8.000	8.200	Hello!
+18.800	19.200	I can help
+23.000	42.000	I'd be happy to help with both of those issues. First, I need to authenticate you. I tried using pat.doe@example.com, but it wasn't found. Can you provide me with your email address spelled out, or...
+45.600	47.000	M E I, got it. An
+49.000	51.800	P, okay. And the rest of your last name?
+60.800	68.000	Thank you, I've found your account. I can help you with the jigsaw puzzle exchange and checking your address. Which would you like to do first?
+78.600	83.200	To confirm, you want to exchange the 1000-piece puzzle for one with fewer pieces?
+84.400	86.000	Sure, take your time.
+89.800	94.800	Great. Do you know the item ID for the puzzle you want to exchange from, and the new item ID?
+97.200	101.200	No problem. Could you tell me the specific name of the puzzle you ordered?
+108.400	124.400	I found a 1000-piece "intermediate" jigsaw puzzle on order #W4082615. Is that the one? We can exchange it for azzle with fewer pieces. The puzzle you have is 1000 pieces. The available options with...
+138.200	146.400	Sure. The address on file is 443 Maple Drive, Suite 394, Fort Worth, TX 76165. Is that correct?
+151.000	157.000	Your address has been updated to 445 Maple Drive, Suite 394. Is there anything else I can help you with today?
+160.200	169.000	I can only modify the address for pending orders. Order #W4082615 is pending, so I can update that one for you. Would you like me to proceed with that?
+172.400	178.200	The shipping address for order #W4082615 has been updated. Is there anything else I can help you with?

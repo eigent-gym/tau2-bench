@@ -1,0 +1,28 @@
+\begin{table}[h]
+\caption{Voice vs Text comparison (pass@1). Text baseline: GPT-4.1. Voice uses Realistic condition. $\Delta$ = Voice $-$ Text.}
+\label{tab:voice-vs-text}
+\centering
+\begin{small}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+\textbf{Domain} & \textbf{Provider} & \textbf{Text} & \textbf{Voice} & \textbf{$\Delta$} \\
+\midrule
+\multirow{3}{*}{All} & Google & \multirow{3}{*}{54\%} & 24\% & $-$30\% \\
+ & OpenAI &  & 19\% & $-$35\% \\
+ & xAI &  & \textbf{30\%} & $-$24\% \\
+\midrule
+\multirow{3}{*}{Retail} & Google & \multirow{3}{*}{74\%} & \textbf{28\%} & $-$45\% \\
+ & OpenAI &  & 15\% & $-$58\% \\
+ & xAI &  & 20\% & $-$53\% \\
+\midrule
+\multirow{3}{*}{Airline} & Google & \multirow{3}{*}{56\%} & 26\% & $-$30\% \\
+ & OpenAI &  & 28\% & $-$28\% \\
+ & xAI &  & \textbf{34\%} & $-$22\% \\
+\midrule
+\multirow{3}{*}{Telecom} & Google & \multirow{3}{*}{34\%} & 19\% & $-$14\% \\
+ & OpenAI &  & 14\% & $-$19\% \\
+ & xAI &  & \textbf{36\%} & +2\% \\
+\bottomrule
+\end{tabular}
+\end{small}
+\end{table}

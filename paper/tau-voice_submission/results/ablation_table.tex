@@ -1,0 +1,23 @@
+\begin{table}[h]
+\caption{Ablation: impact of acoustic factors on pass@1 (Retail domain).}
+\label{tab:ablation}
+\centering
+\begin{small}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc|c}
+\toprule
+\textbf{Condition} & \textbf{Google} & \textbf{OpenAI} & \textbf{xAI} & \textbf{All} \\
+\midrule
+Clean & 39\% & 39\% & \textbf{42\%} & 40\% \\
++ Noise & \textbf{37\% (-1)} & 26\% (-13) & 29\% (-12) & 31\% (-9) \\
++ Accents & \textbf{36\% (-2)} & 21\% (-18) & 23\% (-18) & 27\% (-13) \\
++ Interrupts & \textbf{38\% (+0)} & 30\% (-8) & 36\% (-5) & 35\% (-4) \\
++ Noise + Accents & \textbf{28\% (-11)} & 14\% (-24) & 14\% (-28) & 19\% (-21) \\
++ Noise + Interrupts & 25\% (-14) & 18\% (-21) & \textbf{31\% (-10)} & 25\% (-15) \\
++ Accents + Interrupts & \textbf{30\% (-8)} & 16\% (-22) & 26\% (-15) & 24\% (-15) \\
+Realistic & \textbf{28\% (-11)} & 15\% (-23) & 20\% (-21) & 21\% (-19) \\
+\bottomrule
+\end{tabular}%
+}
+\end{small}
+\end{table}
