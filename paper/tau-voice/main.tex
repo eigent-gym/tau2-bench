@@ -100,6 +100,14 @@
 %\usepackage[disable,textsize=tiny]{todonotes}
 \usepackage[textsize=tiny]{todonotes}
 
+% Override \todo so notes render inline in the body as a loud red
+% [TODO: ...] tag instead of a margin or inline-box note. Accepts and
+% discards optional bracketed args (e.g. [inline]) so existing call sites
+% keep working unchanged. Replace this block (or set \renewcommand{\todo}[2][]{}
+% / pass [disable] to todonotes above) for a clean render.
+\let\todoOriginal\todo
+\renewcommand{\todo}[2][]{{\color{red}\textbf{[TODO:} #2\textbf{]}}}
+
 % The \icmltitle you define below is probably too long as a header.
 % Therefore, a short form for the running title is supplied here:
 \icmltitlerunning{$\tau$-Voice}
