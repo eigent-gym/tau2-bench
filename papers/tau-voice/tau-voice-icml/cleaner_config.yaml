@@ -1,5 +1,9 @@
 commands_to_delete:
   - 'todo'
   - 'authornote'
+  - 'old'
+  - 'why'
+commands_only_to_delete:
+  - 'new'
 keep_bib: True
 verbose: True
