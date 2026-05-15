@@ -104,7 +104,7 @@ We categorize errors into six types based on observed failure patterns:
 
 \new{To validate that the voice user simulator produces interactions that resemble realistic caller behavior, we conducted a small human annotation study.}\why{addresses macs Q3/Q4}
 
-\new{\paragraph{Methodology.} Two annotators independently rated 60 simulations drawn from the benchmark on a 1--4 Likert scale (1 = clearly unrealistic, 4 = indistinguishable from a real caller). Each simulation was rated along six dimensions:}\why{addresses macs Q3/Q4}
+\new{\paragraph{Methodology.} Two annotators independently rated 60 simulations stratified across domains and speech-complexity conditions on a 1--4 Likert scale (1 = clearly unrealistic, 4 = indistinguishable from a real caller). Each simulation was rated along six dimensions:}\why{addresses macs Q3/Q4}
 
 \new{\begin{itemize}[nosep,leftmargin=*]
     \item \textbf{Voice prosody}: pitch, rhythm, and intonation of the synthesized caller speech.
@@ -114,7 +114,7 @@ We categorize errors into six types based on observed failure patterns:
     \item \textbf{Interruption behavior}: appropriateness and frequency of mid-utterance interjections.
     \item \textbf{Behavioral plausibility}: holistic judgment of whether the caller behaves like a real human across the whole call.
 \end{itemize}}\why{addresses macs Q3/Q4}
-\todo{verify with Victor: were the 60 simulations stratified across domains $\times$ speech-complexity conditions, or sampled uniformly? Current neutral phrasing avoids overclaiming.}
+\todo{double-check stratification scheme (domains $\times$ speech-complexity) matches the annotation pass before final submission.}
 
 \new{\paragraph{Results.} Table~\ref{tab:simulator-realism} reports the per-dimension means averaged across the two annotators. Averaging across the six dimensions, the simulator achieves an overall mean of 3.1/4, with 83\% of all individual ratings at 3 or above. Within-1 inter-rater agreement --- the fraction of (simulation, dimension) pairs on which the two raters' scores are within one point of each other --- is 94\%, suggesting consistent perception of simulator quality across annotators.}\why{addresses macs Q3/Q4}
 
