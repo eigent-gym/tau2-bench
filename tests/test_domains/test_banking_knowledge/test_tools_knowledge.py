@@ -3011,6 +3011,7 @@ class TestReadOnlyDiscoverableAgentTools:
         )
         assert not resp.error
         assert "transactions" in resp.content.lower()
+        assert len(environment.tools.db.agent_discoverable_tools.data) == 0
 
     def test_get_debit_cards_by_account(self, environment: Environment):
         resp = call_discoverable_agent(

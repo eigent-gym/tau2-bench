@@ -668,10 +668,13 @@ class KnowledgeTools(ToolKitBase):
         except TypeError as e:
             return f"Error: Invalid arguments: {e}"
 
-        # Record the call in the database for evaluation (only unique tool names)
-        agent_tool_record = {"tool_name": agent_tool_name, "status": "CALLED"}
-        record_id = generate_agent_discoverable_tool_id(agent_tool_name)
-        add_to_db("agent_discoverable_tools", record_id, agent_tool_record, db=self.db)
+        # Record only state-mutating discoverable calls for DB-based evaluation.
+        if self.tool_mutates_state(agent_tool_name):
+            agent_tool_record = {"tool_name": agent_tool_name, "status": "CALLED"}
+            record_id = generate_agent_discoverable_tool_id(agent_tool_name)
+            add_to_db(
+                "agent_discoverable_tools", record_id, agent_tool_record, db=self.db
+            )
 
         return result
 
