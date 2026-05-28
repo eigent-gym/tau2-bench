@@ -250,10 +250,6 @@ function App() {
         <div className="container">
           <p>
             For questions or feedback, contact{' '}
-            <a href="mailto:victor@sierra.ai" className="footer-email">
-              victor@sierra.ai
-            </a>
-            {' '}or{' '}
             <a href="mailto:ben.s@sierra.ai" className="footer-email">
               ben.s@sierra.ai
             </a>
