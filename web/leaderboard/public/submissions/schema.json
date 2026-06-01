@@ -449,6 +449,18 @@
           "default": null,
           "description": "User simulator TTS provider and model (e.g. 'elevenlabs/eleven_v3')",
           "title": "User Tts Provider"
+        },
+        "pipeline": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VoicePipeline"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Component models used by a cascaded voice pipeline"
         }
       },
       "required": [
@@ -456,6 +468,53 @@
         "model"
       ],
       "title": "VoiceConfig",
+      "type": "object"
+    },
+    "VoicePipeline": {
+      "additionalProperties": false,
+      "description": "Component model identifiers for a cascaded voice submission.",
+      "properties": {
+        "asr": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "ASR / speech-to-text model identifier",
+          "title": "Asr"
+        },
+        "llm": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "LLM model identifier",
+          "title": "Llm"
+        },
+        "tts": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "TTS / speech synthesis model identifier",
+          "title": "Tts"
+        }
+      },
+      "title": "VoicePipeline",
       "type": "object"
     }
   },

@@ -1242,10 +1242,102 @@
   gap: 8px;
 }
 
+.org-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .org-name {
   font-size: 14px;
   font-weight: 500;
   color: #4a5568;
+}
+
+.voice-pipeline-summary {
+  align-items: center;
+  color: #64748b;
+  display: flex;
+  font-size: 11px;
+  font-weight: 600;
+  gap: 4px;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.voice-pipeline-info {
+  appearance: none;
+  background: none;
+  border: 0;
+  color: #94a3b8;
+  cursor: help;
+  font-size: 12px;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-transform: none;
+  transition: color 0.2s ease;
+}
+
+.voice-pipeline-info.open,
+.voice-pipeline-info:hover,
+.voice-pipeline-info:focus,
+.voice-pipeline-info:focus-visible {
+  color: #065f46;
+  outline: none;
+}
+
+.voice-pipeline-info::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  background: #1e293b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.4;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: left;
+  text-transform: none;
+  white-space: pre-line;
+  width: max-content;
+  max-width: min(270px, 70vw);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.voice-pipeline-info::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  right: 2px;
+  border: 5px solid transparent;
+  border-top-color: #1e293b;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 20;
+}
+
+.voice-pipeline-info.open::after,
+.voice-pipeline-info.open::before,
+.voice-pipeline-info:hover::after,
+.voice-pipeline-info:hover::before,
+.voice-pipeline-info:focus::after,
+.voice-pipeline-info:focus::before,
+.voice-pipeline-info:focus-visible::after,
+.voice-pipeline-info:focus-visible::before {
+  opacity: 1;
 }
 
 .company-logo {

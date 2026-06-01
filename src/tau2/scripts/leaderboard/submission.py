@@ -195,6 +195,18 @@ class Methodology(BaseModelNoExtra):
     )
 
 
+class VoicePipeline(BaseModelNoExtra):
+    """Component model identifiers for a cascaded voice submission."""
+
+    asr: Optional[str] = Field(
+        None, description="ASR / speech-to-text model identifier"
+    )
+    llm: Optional[str] = Field(None, description="LLM model identifier")
+    tts: Optional[str] = Field(
+        None, description="TTS / speech synthesis model identifier"
+    )
+
+
 class VoiceConfig(BaseModelNoExtra):
     """Voice-specific configuration for reproducing audio-native evaluations."""
 
@@ -217,6 +229,10 @@ class VoiceConfig(BaseModelNoExtra):
     user_tts_provider: Optional[str] = Field(
         None,
         description="User simulator TTS provider and model (e.g. 'elevenlabs/eleven_v3')",
+    )
+    pipeline: Optional[VoicePipeline] = Field(
+        None,
+        description="Component models used by a cascaded voice pipeline",
     )
 
 

@@ -20,6 +20,15 @@ const SUBMISSIONS_BASE = import.meta.env.VITE_SUBMISSIONS_BASE_URL
 
 const NO_CACHE = { cache: 'no-cache' }
 
+const formatVoicePipeline = (pipeline) => {
+  if (!pipeline) return ''
+  return [
+    pipeline.asr ? `ASR: ${pipeline.asr}` : null,
+    pipeline.llm ? `LLM: ${pipeline.llm}` : null,
+    pipeline.tts ? `TTS: ${pipeline.tts}` : null,
+  ].filter(Boolean).join('\n')
+}
+
 const Leaderboard = () => {
   // Benchmark selector: 'text' (τ-bench) or 'voice' (τ-voice)
   const [benchmark, setBenchmark] = useState(() => {
@@ -58,6 +67,7 @@ const Leaderboard = () => {
   const [showFilterInfo, setShowFilterInfo] = useState(false)
   // Expanded rows state (set of model names)
   const [expandedRows, setExpandedRows] = useState(new Set())
+  const [openPipelineKey, setOpenPipelineKey] = useState(null)
   
   // Add state for dynamically loaded data
   const [passKData, setPassKData] = useState({})
@@ -699,6 +709,7 @@ const Leaderboard = () => {
                 return modelStats.map((model, index) => {
                   const isExpanded = expandedRows.has(model.key)
                   const displayOrg = isVoice ? (model.data.voiceConfig?.provider || model.organization) : model.organization
+                  const pipelineSummary = isVoice ? formatVoicePipeline(model.data.voiceConfig?.pipeline) : ''
                   return (
                    <React.Fragment key={model.key}>
                    <tr className={`model-row ${model.data.isLegacy ? 'legacy-model' : ''} ${isExpanded ? 'expanded' : ''}`}>
@@ -795,7 +806,27 @@ const Leaderboard = () => {
                           <img src={`${import.meta.env.BASE_URL}xai-logo.svg`} alt="xAI" className="logo-img" />
                         )}
                        </div>
-                        <span className="org-name">{displayOrg}</span>
+                        <div className="org-text">
+                          <span className="org-name" title={pipelineSummary || displayOrg}>{displayOrg}</span>
+                          {pipelineSummary && (
+                            <span className="voice-pipeline-summary">
+                              <span>ASR + LLM + TTS</span>
+                              <button
+                                type="button"
+                                className={`voice-pipeline-info ${openPipelineKey === model.key ? 'open' : ''}`}
+                                data-tooltip={pipelineSummary}
+                                aria-label={pipelineSummary}
+                                aria-expanded={openPipelineKey === model.key}
+                                onClick={(event) => {
+                                  event.stopPropagation()
+                                  setOpenPipelineKey(openPipelineKey === model.key ? null : model.key)
+                                }}
+                              >
+                                ⓘ
+                              </button>
+                            </span>
+                          )}
+                        </div>
                       </div>
                        )}
                      </td>
@@ -1052,6 +1083,20 @@ const Leaderboard = () => {
                       <tr className="sd-section-header"><td colSpan="2">VOICE CONFIGURATION</td></tr>
                       <tr><td>Provider</td><td>{selectedSubmission.voice_config.provider}</td></tr>
                       <tr><td>Model</td><td>{selectedSubmission.voice_config.model}</td></tr>
+                      {selectedSubmission.voice_config.pipeline && (
+                        <>
+                          <tr className="sd-section-header"><td colSpan="2">CASCADE COMPONENTS</td></tr>
+                          {selectedSubmission.voice_config.pipeline.asr && (
+                            <tr><td>ASR</td><td>{selectedSubmission.voice_config.pipeline.asr}</td></tr>
+                          )}
+                          {selectedSubmission.voice_config.pipeline.llm && (
+                            <tr><td>LLM</td><td>{selectedSubmission.voice_config.pipeline.llm}</td></tr>
+                          )}
+                          {selectedSubmission.voice_config.pipeline.tts && (
+                            <tr><td>TTS</td><td>{selectedSubmission.voice_config.pipeline.tts}</td></tr>
+                          )}
+                        </>
+                      )}
                       {selectedSubmission.voice_config.tick_duration_seconds != null && (
                         <tr><td>Tick Duration</td><td>{selectedSubmission.voice_config.tick_duration_seconds}s</td></tr>
                       )}
