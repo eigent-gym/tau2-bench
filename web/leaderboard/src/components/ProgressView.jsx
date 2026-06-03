@@ -606,7 +606,7 @@ const ProgressView = ({
         </div>
 
         <div className="progress-footnote">
-          Markers show each model's overall pass@1 plotted at its public release date.
+          Markers show each model's {domainLabel.toLowerCase()} pass@1 plotted at its public release date.
           Hover any marker for details. The dashed line tracks the running best.
           Submissions without a published <code>model_release.release_date</code> fall back
           to the evaluation date.

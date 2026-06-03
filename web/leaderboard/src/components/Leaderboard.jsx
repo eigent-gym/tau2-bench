@@ -19,6 +19,19 @@ const SUBMISSIONS_BASE = import.meta.env.VITE_SUBMISSIONS_BASE_URL
   || `${import.meta.env.BASE_URL}submissions`
 
 const NO_CACHE = { cache: 'no-cache' }
+const TEXT_DEFAULT_DOMAIN = 'banking_knowledge'
+const TEXT_DOMAINS = [
+  { key: 'banking_knowledge', label: '🏦 Banking' },
+  { key: 'retail', label: '🛍️ Retail' },
+  { key: 'airline', label: '✈️ Airline' },
+  { key: 'telecom', label: '📱 Telecom' },
+]
+const VOICE_DOMAINS = [
+  { key: 'overall', label: '📊 Overall' },
+  { key: 'retail', label: '🛍️ Retail' },
+  { key: 'airline', label: '✈️ Airline' },
+  { key: 'telecom', label: '📱 Telecom' },
+]
 
 const Leaderboard = () => {
   // Benchmark selector: 'text' (τ-bench) or 'voice' (τ-voice)
@@ -31,7 +44,12 @@ const Leaderboard = () => {
   })
   // Add unified domain selection state with localStorage persistence
   const [domain, setDomain] = useState(() => {
-    return localStorage.getItem('domain') || 'overall'
+    const storedBenchmark = localStorage.getItem('benchmark')
+    const storedDomain = localStorage.getItem('domain')
+    const validDomains = storedBenchmark === 'voice' ? VOICE_DOMAINS : TEXT_DOMAINS
+    return validDomains.some(({ key }) => key === storedDomain)
+      ? storedDomain
+      : (storedBenchmark === 'voice' ? 'overall' : TEXT_DEFAULT_DOMAIN)
   })
   // Selected pass^k metric (1-4) with localStorage persistence
   const [selectedPassK, setSelectedPassK] = useState(() => {
@@ -289,6 +307,13 @@ const Leaderboard = () => {
   }, [domain])
 
   useEffect(() => {
+    const domainsForBenchmark = benchmark === 'voice' ? VOICE_DOMAINS : TEXT_DOMAINS
+    if (!domainsForBenchmark.some(({ key }) => key === domain)) {
+      setDomain(benchmark === 'voice' ? 'overall' : TEXT_DEFAULT_DOMAIN)
+    }
+  }, [benchmark, domain])
+
+  useEffect(() => {
     localStorage.setItem('selectedPassK', selectedPassK)
   }, [selectedPassK])
 
@@ -331,6 +356,8 @@ const Leaderboard = () => {
       }
       // Voice only has pass^1
       setSelectedPassK(1)
+    } else if (domain === 'overall') {
+      setDomain(TEXT_DEFAULT_DOMAIN)
     }
   }
 
@@ -413,20 +440,7 @@ const Leaderboard = () => {
 
   // Determine domains available for current benchmark
   const isVoice = benchmark === 'voice'
-  const availableDomains = isVoice
-    ? [
-        { key: 'overall', label: '📊 Overall' },
-        { key: 'retail', label: '🛍️ Retail' },
-        { key: 'airline', label: '✈️ Airline' },
-        { key: 'telecom', label: '📱 Telecom' },
-      ]
-    : [
-        { key: 'overall', label: '📊 Overall' },
-        { key: 'banking_knowledge', label: '🏦 Banking' },
-        { key: 'retail', label: '🛍️ Retail' },
-        { key: 'airline', label: '✈️ Airline' },
-        { key: 'telecom', label: '📱 Telecom' },
-      ]
+  const availableDomains = isVoice ? VOICE_DOMAINS : TEXT_DOMAINS
 
   // For voice overall, only average the 3 non-banking domains
   const voiceDomains = ['retail', 'airline', 'telecom']
@@ -599,7 +613,7 @@ const Leaderboard = () => {
               {(() => {
                 // Calculate domain-specific scores for ranking
                 const modelStats = Object.entries(passKData)
-                  .filter(([modelName, data]) => {
+                  .filter(([, data]) => {
                     // Filter by benchmark modality
                     if (data.modality !== benchmark) {
                       return false

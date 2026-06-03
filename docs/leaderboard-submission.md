@@ -15,7 +15,7 @@ Both modalities share the same [validation](#step-3-validate-your-submission), [
 
 Your submission should meet these constraints:
 
-1. **Domain coverage** — we recommend including results for all three core domains (`retail`, `airline`, `telecom`). You may submit results for a single domain, but the leaderboard's "Overall" column only appears when all four domains (including `banking_knowledge`) have Pass^1 scores
+1. **Domain coverage** — we recommend including results for all current text domains (`banking_knowledge`, `retail`, `airline`, `telecom`). You may submit results for a single domain; the leaderboard ranks submissions per domain.
 2. **Consistent model configuration** — all trajectory files must use the same agent model and user simulator with identical arguments across all domains
 3. **One result per domain** — each domain should appear exactly once
 4. **All tasks completed** — run evaluation on all tasks within each domain (don't use `--task-ids` or `--num-tasks` filters)
