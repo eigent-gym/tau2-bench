@@ -11,15 +11,16 @@
   },
   "results": {
     "retail": {
-      "pass_1": 0.0
+      "pass_1": 47.36842105263158
     },
     "airline": {
-      "pass_1": 0.0
+      "pass_1": 58.0
     },
     "telecom": {
-      "pass_1": 0.0
+      "pass_1": 21.92982456140351
     }
   },
+  "reasoning_effort": "xhigh",
   "is_new": true,
   "trajectories_available": true,
   "trajectory_files": {
