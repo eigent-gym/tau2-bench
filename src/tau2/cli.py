@@ -260,7 +260,7 @@ def add_run_args(parser):
     parser.add_argument(
         "--reasoning-effort",
         type=str,
-        choices=["minimal", "low", "medium", "high"],
+        choices=["minimal", "low", "medium", "high", "xhigh"],
         default=None,
         help="Reasoning effort for thinking models. Only applies to providers that support it (e.g. OpenAI).",
     )
