@@ -24,9 +24,9 @@
   "is_new": true,
   "trajectories_available": true,
   "trajectory_files": {
-    "airline": "airline_regular_openai_gpt-realtime-2_usersim-gpt-5.5-xhigh",
-    "retail": "retail_regular_openai_gpt-realtime-2_usersim-gpt-5.5-xhigh",
-    "telecom": "telecom_regular_openai_gpt-realtime-2_usersim-gpt-5.5-xhigh"
+    "airline": "gpt-realtime-2_voice_xhigh_usersim-gpt55xhigh_airline",
+    "retail": "gpt-realtime-2_voice_xhigh_usersim-gpt55xhigh_retail",
+    "telecom": "gpt-realtime-2_voice_xhigh_usersim-gpt55_telecom"
   },
   "methodology": {
     "evaluation_date": "2026-06-29",
