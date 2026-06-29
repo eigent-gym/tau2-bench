@@ -31,7 +31,7 @@
   "methodology": {
     "evaluation_date": "2026-06-29",
     "tau2_bench_version": "1.0.0",
-    "user_simulator": "gpt-5.5-2026-04-23 (reasoning_effort=xhigh) — non-standard custom user simulator (the standard voice user simulator is v1.0 / gpt-4.1)",
+    "user_simulator": "gpt-5.5-2026-04-23 (xhigh)",
     "notes": "Custom submission: identical to the standard gpt-realtime-2 voice evaluation (audio-native, regular speech complexity, ElevenLabs eleven_v3 TTS, agent reasoning_effort=xhigh) EXCEPT the user simulator LLM is gpt-5.5-2026-04-23 run at reasoning_effort=xhigh instead of the leaderboard-standard v1.0 (gpt-4.1). Because telecom's user simulator uses function tools, gpt-5.5 rejects reasoning_effort=none with tools, so all domains use xhigh for consistency. Not comparable to standard-user-simulator leaderboard entries.",
     "verification": {
       "modified_prompts": false,
