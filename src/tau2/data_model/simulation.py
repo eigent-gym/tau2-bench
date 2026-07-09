@@ -545,7 +545,7 @@ class TextRunConfig(BaseRunConfig):
     user: Annotated[
         str,
         Field(
-            description="The user implementation to use (e.g., 'user_simulator', 'dummy_user')",
+            description="The user implementation to use (e.g., 'user_simulator', 'codex_user_simulator', 'dummy_user')",
             default="user_simulator",
         ),
     ]

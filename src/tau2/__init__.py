@@ -31,6 +31,7 @@ from tau2.orchestrator.orchestrator import Orchestrator
 # Use: from tau2.orchestrator.full_duplex_orchestrator import FullDuplexOrchestrator
 from tau2.registry import Registry, registry
 from tau2.run import run_domain
+from tau2.user.codex_user_simulator import CodexUserSimulator
 from tau2.user.user_simulator import UserSimulator
 from tau2.user.user_simulator_base import FullDuplexUser, HalfDuplexUser
 from tau2.utils.display import ConsoleDisplay, MarkdownDisplay
@@ -83,6 +84,7 @@ __all__ = [
     "LLMSoloAgent",
     "LLMConfigMixin",
     "UserSimulator",
+    "CodexUserSimulator",
     "HalfDuplexAgent",
     "FullDuplexAgent",
     "HalfDuplexUser",

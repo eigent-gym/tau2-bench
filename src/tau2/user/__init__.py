@@ -4,6 +4,7 @@ User module exports.
 
 import warnings
 
+from tau2.user.codex_user_simulator import CodexUserSimulator
 from tau2.user.user_simulator import DummyUser, UserSimulator
 from tau2.user.user_simulator_base import (
     FullDuplexUser,
@@ -68,6 +69,7 @@ __all__ = [
     "ValidUserInputMessage",
     # User simulators
     "UserSimulator",
+    "CodexUserSimulator",
     "DummyUser",
     # Voice users (lazy imports)
     "VoiceUserSimulator",
