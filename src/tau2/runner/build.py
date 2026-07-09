@@ -27,6 +27,7 @@ from tau2.environment.environment import Environment
 from tau2.orchestrator.full_duplex_orchestrator import FullDuplexOrchestrator
 from tau2.orchestrator.orchestrator import Orchestrator
 from tau2.registry import registry
+from tau2.user.codex_user_simulator import CodexUserSimulator
 from tau2.user.user_simulator import DummyUser, UserSimulator
 from tau2.user.user_simulator_base import FullDuplexUser, HalfDuplexUser
 from tau2.user_simulation_voice_presets import (
@@ -155,6 +156,17 @@ def build_user(
         AssertionError: If DummyUser is used without solo_mode.
     """
     UserConstructor = registry.get_user_constructor(user_name)
+    llm_args_for_user = deepcopy(llm_args) if llm_args is not None else None
+    backend = None
+    if llm_args_for_user is not None:
+        backend = llm_args_for_user.pop("backend", None)
+        backend = llm_args_for_user.pop("user_backend", backend)
+    if backend is not None:
+        backend_name = str(backend).lower()
+        if backend_name in {"codex", "codex_cli"}:
+            UserConstructor = CodexUserSimulator
+        elif backend_name not in {"litellm", "default", "user_simulator"}:
+            raise ValueError(f"Unsupported user simulator backend: {backend}")
 
     try:
         user_tools = environment.get_user_tools(include=task.user_tools) or None
@@ -169,7 +181,7 @@ def build_user(
         "tools": user_tools,
         "instructions": str(task.user_scenario),
         "llm": llm,
-        "llm_args": llm_args,
+        "llm_args": llm_args_for_user,
     }
     if issubclass(UserConstructor, UserSimulator):
         user_kwargs["persona_config"] = persona_config
