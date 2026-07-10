@@ -327,6 +327,24 @@ class SyntheticBankingTools(ToolKitBase):
             return "Error: Late-notice outcome requires an expired statement window."
 
         outcome_id = deterministic_id("debit_intake_outcome", transaction_id, user_id)
+        evidence = {
+            "transaction_status": None,
+            "contacted_merchant": None,
+            "current_open_disputes": None,
+            "maximum_open_disputes": None,
+            "notice_is_within_statement_window": None,
+        }
+        if outcome == "explain_pending_transaction_not_disputable_yet":
+            evidence["transaction_status"] = transaction_status
+        elif outcome == "ask_user_to_contact_merchant_first":
+            evidence["contacted_merchant"] = contacted_merchant
+        elif outcome == "explain_open_dispute_limit":
+            evidence["current_open_disputes"] = current_open_disputes
+            evidence["maximum_open_disputes"] = maximum_open_disputes
+        elif outcome == "deny_not_timely_or_escalate":
+            evidence["notice_is_within_statement_window"] = (
+                notice_is_within_statement_window
+            )
         record = {
             "outcome_id": outcome_id,
             "transaction_id": transaction_id,
@@ -334,11 +352,7 @@ class SyntheticBankingTools(ToolKitBase):
             "user_id": user_id,
             "outcome": outcome,
             "required_next_step": required_next_step,
-            "transaction_status": transaction_status,
-            "contacted_merchant": contacted_merchant,
-            "current_open_disputes": current_open_disputes,
-            "maximum_open_disputes": maximum_open_disputes,
-            "notice_is_within_statement_window": notice_is_within_statement_window,
+            **evidence,
         }
         if not _insert(
             self.db,

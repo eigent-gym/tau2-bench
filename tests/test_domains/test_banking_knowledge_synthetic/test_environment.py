@@ -190,6 +190,7 @@ def test_non_filing_debit_outcome_is_programmatically_recorded() -> None:
         "user_id": transaction["user_id"],
         "outcome": "ask_user_to_contact_merchant_first",
         "required_next_step": "ask_user_for_merchant_contact",
+        "transaction_status": "posted",
         "contacted_merchant": False,
     }
 
@@ -201,6 +202,7 @@ def test_non_filing_debit_outcome_is_programmatically_recorded() -> None:
     record = next(iter(database.debit_dispute_intake_outcomes.data.values()))
     assert record["outcome"] == "ask_user_to_contact_merchant_first"
     assert record["contacted_merchant"] is False
+    assert record["transaction_status"] is None
 
     before = len(database.debit_dispute_intake_outcomes.data)
     invalid_result = environment.make_tool_call(
