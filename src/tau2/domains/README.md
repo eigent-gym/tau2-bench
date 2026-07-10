@@ -67,6 +67,7 @@ pytest tests/test_domains/test_<domain_name>
 | `retail` | Order management, returns, and product inquiries |
 | `telecom` | Telecom account management and troubleshooting |
 | `banking_knowledge` | Knowledge-retrieval-based banking customer service with configurable RAG pipelines |
+| `banking_knowledge_synthetic` | Generated banking knowledge worlds using shared KB, DB, and tool contracts |
 
 ### `banking_knowledge` Domain
 
@@ -89,4 +90,3 @@ from tau2.domains.your_domain.environment import get_tasks_split as your_domain_
 registry.register_domain(your_domain_get_environment, "your_domain_name")
 registry.register_tasks(your_domain_get_tasks, "your_domain_name", get_task_splits=your_domain_get_tasks_split)
 ```
-

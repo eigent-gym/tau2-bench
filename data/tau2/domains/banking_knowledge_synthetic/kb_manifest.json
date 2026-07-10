@@ -1,0 +1,1096 @@
+{
+  "backend": "codex",
+  "document_count": 91,
+  "documents": [
+    {
+      "covered_policy_fields": [
+        "notice_window_days_after_statement",
+        "liability_rule"
+      ],
+      "document_type": "policy",
+      "id": "doc_bank_accounts_bank_accounts_(general)_001",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_001.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_001.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "provisional_credit_rule"
+      ],
+      "document_type": "policy",
+      "id": "doc_bank_accounts_bank_accounts_(general)_002",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_002.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_002.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "filing_rule",
+        "required_tool_arguments"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_003",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_003.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_003.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "hidden_agent_tool_candidate"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_bank_accounts_bank_accounts_(general)_004",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_004.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_004.json",
+      "required_tool_names": [
+        "file_debit_card_transaction_dispute_5724"
+      ],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "user_tool_candidates"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_bank_accounts_bank_accounts_(general)_005",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_005.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_005.json",
+      "required_tool_names": [
+        "get_debit_card_last_4_digits",
+        "provide_written_dispute_statement"
+      ],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_by_dispute_category.atm_cash_discrepancy",
+        "liability_rule",
+        "provisional_credit_rule.category_allows_provisional_credit"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_006",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_006.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_006.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_by_dispute_category.atm_deposit_not_credited",
+        "liability_rule",
+        "provisional_credit_rule.category_allows_provisional_credit"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_007",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_007.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_007.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_by_dispute_category.card_not_present_fraud",
+        "liability_rule",
+        "provisional_credit_rule.category_allows_provisional_credit"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_008",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_008.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_008.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_by_dispute_category.card_present_fraud",
+        "liability_rule",
+        "provisional_credit_rule.category_allows_provisional_credit"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_009",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_009.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_009.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_by_dispute_category.duplicate_charge",
+        "liability_rule",
+        "provisional_credit_rule.category_allows_provisional_credit"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_010",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_010.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_010.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_by_dispute_category.goods_services_not_received",
+        "liability_rule",
+        "provisional_credit_rule.category_allows_provisional_credit"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_011",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_011.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_011.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_by_dispute_category.incorrect_amount",
+        "liability_rule",
+        "provisional_credit_rule.category_allows_provisional_credit"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_012",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_012.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_012.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_by_dispute_category.recurring_charge_after_cancellation",
+        "liability_rule",
+        "provisional_credit_rule.category_allows_provisional_credit"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_013",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_013.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_013.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_by_dispute_category.unauthorized_transaction",
+        "liability_rule",
+        "provisional_credit_rule.category_allows_provisional_credit"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_014",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_014.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_014.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "notice_window_days_after_statement",
+        "liability_rule"
+      ],
+      "document_type": "faq",
+      "id": "doc_bank_accounts_bank_accounts_(general)_015",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_015.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_015.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "provisional_credit_rule.eligible_if_all",
+        "provisional_credit_due_business_days_standard",
+        "provisional_credit_due_business_days_new_account"
+      ],
+      "document_type": "faq",
+      "id": "doc_bank_accounts_bank_accounts_(general)_016",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_016.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_016.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "account_tier_open_dispute_limits",
+        "merchant_contact_required_categories"
+      ],
+      "document_type": "faq",
+      "id": "doc_bank_accounts_bank_accounts_(general)_017",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_017.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_017.json",
+      "required_tool_names": [],
+      "source_pack": "debit_card_reg_e"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_type=checking"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_018",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_018.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_018.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_type=savings"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_019",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_019.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_019.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "open_eligibility",
+        "open_bank_account_tool"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_020",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_020.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_020.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "close_eligibility",
+        "close_bank_account_tool"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_bank_accounts_bank_accounts_(general)_021",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_021.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_021.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "open_bank_account_tool",
+        "close_bank_account_tool"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_bank_accounts_bank_accounts_(general)_022",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_022.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_022.json",
+      "required_tool_names": [
+        "close_bank_account_1097",
+        "open_bank_account_5464"
+      ],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Light Blue Account"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_023",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_023.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_023.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Green Fee-Free Account"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_024",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_024.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_024.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Blue Account"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_025",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_025.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_025.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Evergreen Account"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_026",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_026.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_026.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Bronze Savings Account"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_027",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_027.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_027.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Gold Plus Savings Account"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_028",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_028.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_028.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=True Blue Business Checking"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_029",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_029.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_029.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Emerald Business Saver"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_bank_accounts_bank_accounts_(general)_030",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_030.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_030.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "open_eligibility",
+        "close_eligibility"
+      ],
+      "document_type": "faq",
+      "id": "doc_bank_accounts_bank_accounts_(general)_031",
+      "metadata_path": "metadata/doc_bank_accounts_bank_accounts_(general)_031.json",
+      "path": "documents/doc_bank_accounts_bank_accounts_(general)_031.json",
+      "required_tool_names": [],
+      "source_pack": "checking_savings_products"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.category=personal_checking"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_001",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_001.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_001.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.category=business_checking"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_002",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_002.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_002.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "rolling_window_days",
+        "rolling_window_max_referrals",
+        "programs.annual_cap"
+      ],
+      "document_type": "policy",
+      "id": "doc_bank_accounts_referral_programs_(general)_003",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_003.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_003.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "submit_referral_user_tool"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_bank_accounts_referral_programs_(general)_004",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_004.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_004.json",
+      "required_tool_names": [
+        "submit_referral"
+      ],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.account_type=Blue Account"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_005",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_005.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_005.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.account_type=Green Fee-Free Account"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_006",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_006.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_006.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.account_type=Light Green Account"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_007",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_007.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_007.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.account_type=Purple Account"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_008",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_008.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_008.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.account_type=Navy Blue Account"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_009",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_009.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_009.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.account_type=Cobalt Blue Account"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_010",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_010.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_010.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.account_type=Hunter Green Account"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_011",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_011.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_011.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.account_type=World Blue Account"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_012",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_012.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_012.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "programs.account_type=Sky Blue Account"
+      ],
+      "document_type": "program_guide",
+      "id": "doc_bank_accounts_referral_programs_(general)_013",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_013.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_013.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "rolling_window_days",
+        "rolling_window_max_referrals"
+      ],
+      "document_type": "faq",
+      "id": "doc_bank_accounts_referral_programs_(general)_014",
+      "metadata_path": "metadata/doc_bank_accounts_referral_programs_(general)_014.json",
+      "path": "documents/doc_bank_accounts_referral_programs_(general)_014.json",
+      "required_tool_names": [],
+      "source_pack": "referral_rewards"
+    },
+    {
+      "covered_policy_fields": [
+        "products"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_business_checking_accounts_business_checking_accounts_(general)_001",
+      "metadata_path": "metadata/doc_business_checking_accounts_business_checking_accounts_(general)_001.json",
+      "path": "documents/doc_business_checking_accounts_business_checking_accounts_(general)_001.json",
+      "required_tool_names": [],
+      "source_pack": "business_deposit_products_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "recommendation_method",
+        "products.monthly_fee",
+        "products.minimum_daily_balance_waiver",
+        "products.combined_deposit_balance_waiver"
+      ],
+      "document_type": "policy",
+      "id": "doc_business_checking_accounts_business_checking_accounts_(general)_002",
+      "metadata_path": "metadata/doc_business_checking_accounts_business_checking_accounts_(general)_002.json",
+      "path": "documents/doc_business_checking_accounts_business_checking_accounts_(general)_002.json",
+      "required_tool_names": [],
+      "source_pack": "business_deposit_products_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "open_eligibility",
+        "business_account_open_tool"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_business_checking_accounts_business_checking_accounts_(general)_003",
+      "metadata_path": "metadata/doc_business_checking_accounts_business_checking_accounts_(general)_003.json",
+      "path": "documents/doc_business_checking_accounts_business_checking_accounts_(general)_003.json",
+      "required_tool_names": [],
+      "source_pack": "business_deposit_products_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Harbor Enterprise Business Checking"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_business_checking_accounts_business_checking_accounts_(general)_004",
+      "metadata_path": "metadata/doc_business_checking_accounts_business_checking_accounts_(general)_004.json",
+      "path": "documents/doc_business_checking_accounts_business_checking_accounts_(general)_004.json",
+      "required_tool_names": [],
+      "source_pack": "business_deposit_products_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "business_account_open_tool"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_business_checking_accounts_business_checking_accounts_(general)_005",
+      "metadata_path": "metadata/doc_business_checking_accounts_business_checking_accounts_(general)_005.json",
+      "path": "documents/doc_business_checking_accounts_business_checking_accounts_(general)_005.json",
+      "required_tool_names": [
+        "open_business_deposit_account_8514"
+      ],
+      "source_pack": "business_deposit_products_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Harbor Starter Business Checking"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_business_checking_accounts_business_checking_accounts_(general)_006",
+      "metadata_path": "metadata/doc_business_checking_accounts_business_checking_accounts_(general)_006.json",
+      "path": "documents/doc_business_checking_accounts_business_checking_accounts_(general)_006.json",
+      "required_tool_names": [],
+      "source_pack": "business_deposit_products_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Harbor Growth Business Checking"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_business_checking_accounts_business_checking_accounts_(general)_007",
+      "metadata_path": "metadata/doc_business_checking_accounts_business_checking_accounts_(general)_007.json",
+      "path": "documents/doc_business_checking_accounts_business_checking_accounts_(general)_007.json",
+      "required_tool_names": [],
+      "source_pack": "business_deposit_products_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "products.account_class=Harbor Enterprise Business Checking"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_business_checking_accounts_business_checking_accounts_(general)_008",
+      "metadata_path": "metadata/doc_business_checking_accounts_business_checking_accounts_(general)_008.json",
+      "path": "documents/doc_business_checking_accounts_business_checking_accounts_(general)_008.json",
+      "required_tool_names": [],
+      "source_pack": "business_deposit_products_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "recommendation_method",
+        "open_eligibility"
+      ],
+      "document_type": "faq",
+      "id": "doc_business_checking_accounts_business_checking_accounts_(general)_009",
+      "metadata_path": "metadata/doc_business_checking_accounts_business_checking_accounts_(general)_009.json",
+      "path": "documents/doc_business_checking_accounts_business_checking_accounts_(general)_009.json",
+      "required_tool_names": [],
+      "source_pack": "business_deposit_products_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "products"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_credit_cards_credit_card_products_001",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_001.json",
+      "path": "documents/doc_credit_cards_credit_card_products_001.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "recommendation_method",
+        "tie_breakers",
+        "credit_tier_order"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_credit_cards_credit_card_products_002",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_002.json",
+      "path": "documents/doc_credit_cards_credit_card_products_002.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.annual_fee",
+        "products.purchase_apr",
+        "products.cashback"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_credit_cards_credit_card_products_003",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_003.json",
+      "path": "documents/doc_credit_cards_credit_card_products_003.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "apply_for_credit_card_user_tool"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_credit_cards_credit_card_products_004",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_004.json",
+      "path": "documents/doc_credit_cards_credit_card_products_004.json",
+      "required_tool_names": [
+        "apply_for_credit_card"
+      ],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.card_name=Bronze Rewards Card"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_credit_cards_credit_card_products_005",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_005.json",
+      "path": "documents/doc_credit_cards_credit_card_products_005.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.card_name=Silver Rewards Card"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_credit_cards_credit_card_products_006",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_006.json",
+      "path": "documents/doc_credit_cards_credit_card_products_006.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.card_name=Gold Rewards Card"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_credit_cards_credit_card_products_007",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_007.json",
+      "path": "documents/doc_credit_cards_credit_card_products_007.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.card_name=Platinum Rewards Card"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_credit_cards_credit_card_products_008",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_008.json",
+      "path": "documents/doc_credit_cards_credit_card_products_008.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.card_name=EcoCard"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_credit_cards_credit_card_products_009",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_009.json",
+      "path": "documents/doc_credit_cards_credit_card_products_009.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.card_name=Crypto-Cash Back"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_credit_cards_credit_card_products_010",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_010.json",
+      "path": "documents/doc_credit_cards_credit_card_products_010.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "products.card_name=Silver Zoom Card"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_credit_cards_credit_card_products_011",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_011.json",
+      "path": "documents/doc_credit_cards_credit_card_products_011.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "recommendation_method",
+        "tie_breakers",
+        "credit_tier_order"
+      ],
+      "document_type": "faq",
+      "id": "doc_credit_cards_credit_card_products_012",
+      "metadata_path": "metadata/doc_credit_cards_credit_card_products_012.json",
+      "path": "documents/doc_credit_cards_credit_card_products_012.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_products"
+    },
+    {
+      "covered_policy_fields": [
+        "billing_error_notice_window_days",
+        "valid_dispute_reasons"
+      ],
+      "document_type": "policy",
+      "id": "doc_credit_cards_credit_cards_(general)_001",
+      "metadata_path": "metadata/doc_credit_cards_credit_cards_(general)_001.json",
+      "path": "documents/doc_credit_cards_credit_cards_(general)_001.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_dispute"
+    },
+    {
+      "covered_policy_fields": [
+        "provisional_credit_rule"
+      ],
+      "document_type": "policy",
+      "id": "doc_credit_cards_credit_cards_(general)_002",
+      "metadata_path": "metadata/doc_credit_cards_credit_cards_(general)_002.json",
+      "path": "documents/doc_credit_cards_credit_cards_(general)_002.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_dispute"
+    },
+    {
+      "covered_policy_fields": [
+        "card_action_rule"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_credit_cards_credit_cards_(general)_003",
+      "metadata_path": "metadata/doc_credit_cards_credit_cards_(general)_003.json",
+      "path": "documents/doc_credit_cards_credit_cards_(general)_003.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_dispute"
+    },
+    {
+      "covered_policy_fields": [
+        "hidden_agent_tool_candidate",
+        "required_tool_arguments"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_credit_cards_credit_cards_(general)_004",
+      "metadata_path": "metadata/doc_credit_cards_credit_cards_(general)_004.json",
+      "path": "documents/doc_credit_cards_credit_cards_(general)_004.json",
+      "required_tool_names": [
+        "file_credit_card_transaction_dispute_7383"
+      ],
+      "source_pack": "credit_card_dispute"
+    },
+    {
+      "covered_policy_fields": [
+        "user_tool_candidates"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_credit_cards_credit_cards_(general)_005",
+      "metadata_path": "metadata/doc_credit_cards_credit_cards_(general)_005.json",
+      "path": "documents/doc_credit_cards_credit_cards_(general)_005.json",
+      "required_tool_names": [
+        "get_card_last_4_digits"
+      ],
+      "source_pack": "credit_card_dispute"
+    },
+    {
+      "covered_policy_fields": [
+        "billing_error_notice_window_days",
+        "provisional_credit_rule"
+      ],
+      "document_type": "faq",
+      "id": "doc_credit_cards_credit_cards_(general)_006",
+      "metadata_path": "metadata/doc_credit_cards_credit_cards_(general)_006.json",
+      "path": "documents/doc_credit_cards_credit_cards_(general)_006.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_dispute"
+    },
+    {
+      "covered_policy_fields": [
+        "valid_dispute_reasons",
+        "required_tool_arguments",
+        "card_action_rule"
+      ],
+      "document_type": "faq",
+      "id": "doc_credit_cards_credit_cards_(general)_007",
+      "metadata_path": "metadata/doc_credit_cards_credit_cards_(general)_007.json",
+      "path": "documents/doc_credit_cards_credit_cards_(general)_007.json",
+      "required_tool_names": [],
+      "source_pack": "credit_card_dispute"
+    },
+    {
+      "covered_policy_fields": [
+        "identity_fields",
+        "matching",
+        "standard_verification_min_matches"
+      ],
+      "document_type": "policy",
+      "id": "doc_customer_support_identity_verification_001",
+      "metadata_path": "metadata/doc_customer_support_identity_verification_001.json",
+      "path": "documents/doc_customer_support_identity_verification_001.json",
+      "required_tool_names": [],
+      "source_pack": "identity_verification"
+    },
+    {
+      "covered_policy_fields": [
+        "strong_verification_required_for",
+        "strong_verification_min_matches"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_customer_support_identity_verification_002",
+      "metadata_path": "metadata/doc_customer_support_identity_verification_002.json",
+      "path": "documents/doc_customer_support_identity_verification_002.json",
+      "required_tool_names": [],
+      "source_pack": "identity_verification"
+    },
+    {
+      "covered_policy_fields": [
+        "transfer_reason_on_ownership_dispute",
+        "max_failed_attempts_before_transfer"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_customer_support_identity_verification_003",
+      "metadata_path": "metadata/doc_customer_support_identity_verification_003.json",
+      "path": "documents/doc_customer_support_identity_verification_003.json",
+      "required_tool_names": [],
+      "source_pack": "identity_verification"
+    },
+    {
+      "covered_policy_fields": [
+        "bypass_codes_allowed"
+      ],
+      "document_type": "policy",
+      "id": "doc_customer_support_identity_verification_004",
+      "metadata_path": "metadata/doc_customer_support_identity_verification_004.json",
+      "path": "documents/doc_customer_support_identity_verification_004.json",
+      "required_tool_names": [],
+      "source_pack": "identity_verification"
+    },
+    {
+      "covered_policy_fields": [
+        "log_verification_tool"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_customer_support_identity_verification_005",
+      "metadata_path": "metadata/doc_customer_support_identity_verification_005.json",
+      "path": "documents/doc_customer_support_identity_verification_005.json",
+      "required_tool_names": [
+        "log_verification"
+      ],
+      "source_pack": "identity_verification"
+    },
+    {
+      "covered_policy_fields": [
+        "identity_fields",
+        "standard_verification_min_matches",
+        "strong_verification_min_matches"
+      ],
+      "document_type": "faq",
+      "id": "doc_customer_support_identity_verification_006",
+      "metadata_path": "metadata/doc_customer_support_identity_verification_006.json",
+      "path": "documents/doc_customer_support_identity_verification_006.json",
+      "required_tool_names": [],
+      "source_pack": "identity_verification"
+    },
+    {
+      "covered_policy_fields": [
+        "max_failed_attempts_before_transfer",
+        "transfer_reason_on_ownership_dispute",
+        "bypass_codes_allowed"
+      ],
+      "document_type": "faq",
+      "id": "doc_customer_support_identity_verification_007",
+      "metadata_path": "metadata/doc_customer_support_identity_verification_007.json",
+      "path": "documents/doc_customer_support_identity_verification_007.json",
+      "required_tool_names": [],
+      "source_pack": "identity_verification"
+    },
+    {
+      "covered_policy_fields": [
+        "transfer_types",
+        "external_daily_limit"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_payments_transfers_and_payments_(general)_001",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_001.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_001.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "business_day_rule",
+        "transfer_types"
+      ],
+      "document_type": "policy",
+      "id": "doc_payments_transfers_and_payments_(general)_002",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_002.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_002.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "deposit_availability"
+      ],
+      "document_type": "policy",
+      "id": "doc_payments_transfers_and_payments_(general)_003",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_003.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_003.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "submit_eligibility",
+        "submit_denial_reason_order",
+        "transfer_submit_tool"
+      ],
+      "document_type": "internal_procedure",
+      "id": "doc_payments_transfers_and_payments_(general)_004",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_004.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_004.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "transfer_submit_tool"
+      ],
+      "document_type": "tool_doc",
+      "id": "doc_payments_transfers_and_payments_(general)_005",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_005.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_005.json",
+      "required_tool_names": [
+        "submit_customer_transfer_2674"
+      ],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "transfer_types.transfer_type=internal"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_payments_transfers_and_payments_(general)_006",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_006.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_006.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "transfer_types.transfer_type=ach_standard"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_payments_transfers_and_payments_(general)_007",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_007.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_007.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "transfer_types.transfer_type=ach_same_day"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_payments_transfers_and_payments_(general)_008",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_008.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_008.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "transfer_types.transfer_type=wire_domestic"
+      ],
+      "document_type": "product_guide",
+      "id": "doc_payments_transfers_and_payments_(general)_009",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_009.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_009.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "external_daily_limit",
+        "submit_denial_reason_order"
+      ],
+      "document_type": "faq",
+      "id": "doc_payments_transfers_and_payments_(general)_010",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_010.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_010.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    },
+    {
+      "covered_policy_fields": [
+        "deposit_availability.deposit_cutoff_time",
+        "deposit_availability.check_first_tranche_amount",
+        "deposit_availability.large_deposit_threshold",
+        "deposit_availability.new_account_age_days_threshold"
+      ],
+      "document_type": "faq",
+      "id": "doc_payments_transfers_and_payments_(general)_011",
+      "metadata_path": "metadata/doc_payments_transfers_and_payments_(general)_011.json",
+      "path": "documents/doc_payments_transfers_and_payments_(general)_011.json",
+      "required_tool_names": [],
+      "source_pack": "transfers_payments_deposits_v1"
+    }
+  ],
+  "generator": "kb_builder_v0",
+  "model": "gpt-5.5",
+  "source_jobs_file": "seed_collection_banking/outputs/kb_jobs_v0/jobs.jsonl",
+  "version": "v0"
+}

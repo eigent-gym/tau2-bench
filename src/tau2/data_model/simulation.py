@@ -466,8 +466,11 @@ class BaseRunConfig(BaseModel):
 
     @model_validator(mode="after")
     def _default_banking_retrieval_config(self) -> "BaseRunConfig":
-        """Default retrieval_config to alltools for banking_knowledge."""
-        if self.domain == "banking_knowledge" and self.retrieval_config is None:
+        """Default knowledge-enabled banking domains to alltools retrieval."""
+        if self.domain in {
+            "banking_knowledge",
+            "banking_knowledge_synthetic",
+        } and self.retrieval_config is None:
             object.__setattr__(self, "retrieval_config", "alltools")
         return self
 

@@ -1,0 +1,292 @@
+{
+  "call_model": {
+    "assistant_hidden_tool_flow": [
+      "search_knowledge_base",
+      "read_knowledge_document",
+      "unlock_discoverable_agent_tool",
+      "call_discoverable_agent_tool"
+    ],
+    "user_tool_flow": [
+      "assistant decides the user should take an action",
+      "assistant calls give_discoverable_user_tool",
+      "user agent may call call_discoverable_user_tool internally",
+      "user agent returns text to the tested agent through the chat channel"
+    ]
+  },
+  "tool_count": 19,
+  "tools": [
+    {
+      "arguments": [
+        "account_id"
+      ],
+      "caller": "assistant",
+      "db_table": "accounts",
+      "kind": "WRITE",
+      "name": "close_bank_account_1097",
+      "name_template": "close_bank_account_{suffix}",
+      "optional_arguments": [
+        "reason",
+        "waive_early_closure_fee"
+      ],
+      "purpose": "Close a synthetic deposit account.",
+      "requires_kb_unlock": true,
+      "source_pack": "checking_savings_products",
+      "visibility": "agent_discoverable_after_kb"
+    },
+    {
+      "arguments": [
+        "transaction_id",
+        "card_action",
+        "card_last_4_digits",
+        "full_name",
+        "user_id",
+        "phone",
+        "email",
+        "address",
+        "contacted_merchant",
+        "purchase_date",
+        "issue_noticed_date",
+        "dispute_reason",
+        "resolution_requested",
+        "eligible_for_provisional_credit"
+      ],
+      "caller": "assistant",
+      "conditional_arguments": {
+        "partial_refund_amount": "required when resolution_requested == partial_refund"
+      },
+      "db_table": "credit_card_transaction_disputes",
+      "kind": "WRITE",
+      "name": "file_credit_card_transaction_dispute_7383",
+      "name_template": "file_credit_card_transaction_dispute_{suffix}",
+      "purpose": "Hidden filing tool for credit_card_dispute.",
+      "requires_kb_unlock": true,
+      "source_pack": "credit_card_dispute",
+      "visibility": "agent_discoverable_after_kb"
+    },
+    {
+      "arguments": [
+        "transaction_id",
+        "account_id",
+        "card_id",
+        "user_id",
+        "dispute_category",
+        "transaction_date",
+        "discovery_date",
+        "disputed_amount",
+        "transaction_type",
+        "card_in_possession",
+        "pin_compromised",
+        "contacted_merchant",
+        "police_report_filed",
+        "written_statement_provided",
+        "provisional_credit_eligible",
+        "customer_max_liability_amount",
+        "card_action"
+      ],
+      "caller": "assistant",
+      "conditional_arguments": {},
+      "db_table": "debit_card_disputes",
+      "kind": "WRITE",
+      "name": "file_debit_card_transaction_dispute_5724",
+      "name_template": "file_debit_card_transaction_dispute_{suffix}",
+      "purpose": "Hidden filing tool for debit_card_reg_e.",
+      "requires_kb_unlock": true,
+      "source_pack": "debit_card_reg_e",
+      "visibility": "agent_discoverable_after_kb"
+    },
+    {
+      "arguments": [
+        "user_id",
+        "account_type",
+        "account_class"
+      ],
+      "caller": "assistant",
+      "db_table": "accounts",
+      "kind": "WRITE",
+      "name": "open_bank_account_5464",
+      "name_template": "open_bank_account_{suffix}",
+      "optional_arguments": [],
+      "purpose": "Open a synthetic deposit account.",
+      "requires_kb_unlock": true,
+      "source_pack": "checking_savings_products",
+      "visibility": "agent_discoverable_after_kb"
+    },
+    {
+      "arguments": [
+        "user_id",
+        "business_id",
+        "account_class",
+        "initial_deposit",
+        "authorized_signer_name"
+      ],
+      "caller": "assistant",
+      "db_table": "business_accounts",
+      "kind": "WRITE",
+      "name": "open_business_deposit_account_8514",
+      "name_template": "open_business_deposit_account_{suffix}",
+      "purpose": "Open a synthetic business deposit account after business eligibility is satisfied.",
+      "requires_kb_unlock": true,
+      "source_pack": "business_deposit_products_v1",
+      "visibility": "agent_discoverable_after_kb"
+    },
+    {
+      "arguments": [
+        "user_id",
+        "account_id",
+        "transfer_type",
+        "amount",
+        "destination_reference",
+        "effective_date"
+      ],
+      "caller": "assistant",
+      "db_table": "transfers",
+      "kind": "WRITE",
+      "name": "submit_customer_transfer_2674",
+      "name_template": "submit_customer_transfer_{suffix}",
+      "purpose": "Submit a customer transfer after all transfer eligibility checks pass.",
+      "requires_kb_unlock": true,
+      "source_pack": "transfers_payments_deposits_v1",
+      "visibility": "agent_discoverable_after_kb"
+    },
+    {
+      "caller": "assistant",
+      "kind": "RUNTIME",
+      "name": "call_discoverable_agent_tool",
+      "purpose": "Call an unlocked assistant-side tool by name and JSON arguments.",
+      "requires_kb_unlock": false,
+      "visibility": "agent_initial"
+    },
+    {
+      "caller": "assistant",
+      "kind": "RUNTIME",
+      "name": "give_discoverable_user_tool",
+      "purpose": "Expose a task-scoped user-side tool to the simulated user when policy permits.",
+      "requires_kb_unlock": false,
+      "visibility": "agent_initial"
+    },
+    {
+      "arguments": [
+        "name",
+        "user_id",
+        "address",
+        "email",
+        "phone_number",
+        "date_of_birth",
+        "time_verified"
+      ],
+      "caller": "assistant",
+      "db_table": "verification_history",
+      "kind": "WRITE",
+      "name": "log_verification",
+      "purpose": "Record successful user verification.",
+      "requires_kb_unlock": false,
+      "source_pack": "identity_verification",
+      "visibility": "agent_initial"
+    },
+    {
+      "caller": "assistant",
+      "kind": "READ",
+      "name": "read_knowledge_document",
+      "purpose": "Read a KB document returned by search.",
+      "requires_kb_unlock": false,
+      "visibility": "agent_initial"
+    },
+    {
+      "caller": "assistant",
+      "kind": "READ",
+      "name": "search_knowledge_base",
+      "purpose": "Search KB documents by query.",
+      "requires_kb_unlock": false,
+      "visibility": "agent_initial"
+    },
+    {
+      "arguments": [
+        "reason"
+      ],
+      "caller": "assistant",
+      "db_table": "human_transfer_requests",
+      "kind": "WRITE",
+      "name": "transfer_to_human_agents",
+      "purpose": "Record a human-transfer request when policy requires escalation.",
+      "requires_kb_unlock": false,
+      "visibility": "agent_initial"
+    },
+    {
+      "caller": "assistant",
+      "kind": "RUNTIME",
+      "name": "unlock_discoverable_agent_tool",
+      "purpose": "Unlock a hidden assistant-side tool after finding its KB documentation.",
+      "requires_kb_unlock": false,
+      "visibility": "agent_initial"
+    },
+    {
+      "caller": "user",
+      "kind": "RUNTIME",
+      "name": "call_discoverable_user_tool",
+      "purpose": "Let the simulated user call a user-side tool that the assistant exposed.",
+      "requires_kb_unlock": false,
+      "visibility": "user_agent_runtime"
+    },
+    {
+      "caller": "user",
+      "kind": "READ",
+      "name": "get_card_last_4_digits",
+      "name_template": "get_card_last_4_digits",
+      "purpose": "User-side card information that the tested agent should request via user interaction when not available in agent-visible DB.",
+      "requires_kb_unlock": false,
+      "source_pack": "credit_card_dispute",
+      "visibility": "user_discoverable_after_assistant_grant"
+    },
+    {
+      "caller": "user",
+      "kind": "READ",
+      "name": "get_debit_card_last_4_digits",
+      "name_template": "get_debit_card_last_4_digits",
+      "purpose": "User-side card information when the tested agent needs to confirm which debit card is involved.",
+      "requires_kb_unlock": false,
+      "source_pack": "debit_card_reg_e",
+      "visibility": "user_discoverable_after_assistant_grant"
+    },
+    {
+      "caller": "user",
+      "kind": "READ",
+      "name": "provide_written_dispute_statement",
+      "name_template": "provide_written_dispute_statement",
+      "purpose": "User-side confirmation that the conversation can be used as the written statement for provisional-credit eligibility.",
+      "requires_kb_unlock": false,
+      "source_pack": "debit_card_reg_e",
+      "visibility": "user_discoverable_after_assistant_grant"
+    },
+    {
+      "arguments": [
+        "card_type",
+        "customer_name",
+        "annual_income",
+        "rho_bank_subscription"
+      ],
+      "caller": "user",
+      "db_table": "credit_card_applications",
+      "kind": "WRITE",
+      "name": "apply_for_credit_card",
+      "purpose": "Submit a credit-card application selected by the simulated user.",
+      "requires_kb_unlock": false,
+      "source_pack": "credit_card_products",
+      "visibility": "user_task_tool_after_assistant_grant"
+    },
+    {
+      "arguments": [
+        "user_id",
+        "account_type"
+      ],
+      "caller": "user",
+      "db_table": "referrals",
+      "kind": "WRITE",
+      "name": "submit_referral",
+      "purpose": "Submit a referral for the selected account program.",
+      "requires_kb_unlock": false,
+      "source_pack": "referral_rewards",
+      "visibility": "user_task_tool_after_assistant_grant"
+    }
+  ],
+  "version": "v0"
+}
