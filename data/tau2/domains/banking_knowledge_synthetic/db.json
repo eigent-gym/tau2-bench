@@ -2314,6 +2314,9 @@
   "debit_card_disputes": {
     "data": {}
   },
+  "debit_dispute_intake_outcomes": {
+    "data": {}
+  },
   "debit_cards": {
     "data": {
       "syn_dbc_001": {

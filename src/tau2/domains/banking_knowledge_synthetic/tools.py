@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import inspect
 import json
-from typing import Any, Literal
+from typing import Any, Literal, get_type_hints
+
+from pydantic import TypeAdapter, ValidationError
 
 from tau2.domains.banking_knowledge.tools import (
     format_discoverable_tool_for_agent,
@@ -55,6 +57,44 @@ def _task_clock(db: SyntheticBankingDB) -> dict[str, str]:
             "current_time": "2026-07-10 00:00:00 EST",
         },
     )
+
+
+def _validate_tool_arguments(
+    method: Any,
+    arguments: dict[str, Any],
+    *,
+    allow_partial: bool = False,
+) -> dict[str, Any]:
+    """Validate wrapper arguments against the implementation annotations."""
+    signature = inspect.signature(method)
+    parameters = {
+        name: parameter
+        for name, parameter in signature.parameters.items()
+        if name != "self"
+    }
+    unknown = set(arguments) - set(parameters)
+    if unknown:
+        raise ValueError(f"Unexpected parameter(s): {', '.join(sorted(unknown))}")
+
+    if not allow_partial:
+        try:
+            signature.bind(**arguments)
+        except TypeError as exc:
+            raise ValueError(str(exc)) from exc
+
+    type_hints = get_type_hints(method)
+    validated: dict[str, Any] = {}
+    for name, value in arguments.items():
+        annotation = type_hints.get(name)
+        if annotation is None:
+            validated[name] = value
+            continue
+        try:
+            validated[name] = TypeAdapter(annotation).validate_python(value)
+        except ValidationError as exc:
+            message = exc.errors()[0]["msg"]
+            raise ValueError(f"Invalid value for '{name}': {message}") from exc
+    return validated
 
 
 class SyntheticBankingTools(ToolKitBase):
@@ -213,6 +253,102 @@ class SyntheticBankingTools(ToolKitBase):
         _insert(self.db, "human_transfer_requests", record_id, record)
         return f"Human transfer requested with reason {reason}."
 
+    @is_tool(ToolType.WRITE)
+    def record_debit_dispute_intake_outcome(
+        self,
+        transaction_id: str,
+        account_id: str,
+        user_id: str,
+        outcome: Literal[
+            "explain_pending_transaction_not_disputable_yet",
+            "deny_not_timely_or_escalate",
+            "explain_open_dispute_limit",
+            "ask_user_to_contact_merchant_first",
+        ],
+        required_next_step: Literal[
+            "ask_user_for_merchant_contact",
+            "do_not_call_hidden_agent_tool",
+        ],
+        transaction_status: Literal["pending", "posted"] | None = None,
+        contacted_merchant: bool | None = None,
+        current_open_disputes: int | None = None,
+        maximum_open_disputes: int | None = None,
+        notice_is_within_statement_window: bool | None = None,
+    ) -> str:
+        """Record a policy-grounded debit-dispute result that does not file a dispute.
+
+        Args:
+            transaction_id: Transaction reviewed during intake.
+            account_id: Deposit account linked to the transaction.
+            user_id: Customer identifier.
+            outcome: Policy-defined non-filing outcome.
+            required_next_step: Follow-up required by the policy outcome.
+            transaction_status: Pending or posted status when relevant.
+            contacted_merchant: Whether merchant contact has occurred when relevant.
+            current_open_disputes: Current open-dispute count when relevant.
+            maximum_open_disputes: Account-tier dispute limit when relevant.
+            notice_is_within_statement_window: Timeliness result when relevant.
+        """
+        transaction = self.db.bank_account_transactions.data.get(transaction_id)
+        if transaction is None:
+            return f"Error: Transaction '{transaction_id}' not found."
+        if transaction.get("account_id") != account_id:
+            return "Error: Transaction is not linked to the supplied account."
+        if transaction.get("user_id") != user_id:
+            return "Error: Transaction is not linked to the supplied customer."
+
+        expected_next_step = (
+            "ask_user_for_merchant_contact"
+            if outcome == "ask_user_to_contact_merchant_first"
+            else "do_not_call_hidden_agent_tool"
+        )
+        if required_next_step != expected_next_step:
+            return f"Error: Outcome requires required_next_step='{expected_next_step}'."
+        if (
+            outcome == "explain_pending_transaction_not_disputable_yet"
+            and transaction_status != "pending"
+        ):
+            return "Error: Pending-transaction outcome requires transaction_status='pending'."
+        if (
+            outcome == "ask_user_to_contact_merchant_first"
+            and contacted_merchant is not False
+        ):
+            return "Error: Merchant-contact outcome requires contacted_merchant=false."
+        if outcome == "explain_open_dispute_limit" and (
+            current_open_disputes is None
+            or maximum_open_disputes is None
+            or current_open_disputes < maximum_open_disputes
+        ):
+            return "Error: Open-dispute-limit outcome requires a reached account limit."
+        if (
+            outcome == "deny_not_timely_or_escalate"
+            and notice_is_within_statement_window is not False
+        ):
+            return "Error: Late-notice outcome requires an expired statement window."
+
+        outcome_id = deterministic_id("debit_intake_outcome", transaction_id, user_id)
+        record = {
+            "outcome_id": outcome_id,
+            "transaction_id": transaction_id,
+            "account_id": account_id,
+            "user_id": user_id,
+            "outcome": outcome,
+            "required_next_step": required_next_step,
+            "transaction_status": transaction_status,
+            "contacted_merchant": contacted_merchant,
+            "current_open_disputes": current_open_disputes,
+            "maximum_open_disputes": maximum_open_disputes,
+            "notice_is_within_statement_window": notice_is_within_statement_window,
+        }
+        if not _insert(
+            self.db,
+            "debit_dispute_intake_outcomes",
+            outcome_id,
+            record,
+        ):
+            return f"Debit-dispute intake outcome {outcome_id} already exists."
+        return f"Debit-dispute intake outcome recorded. Outcome ID: {outcome_id}."
+
     @is_tool(ToolType.GENERIC, mutates_state=True)
     def give_discoverable_user_tool(
         self,
@@ -232,6 +368,16 @@ class SyntheticBankingTools(ToolKitBase):
             parsed_arguments = json.loads(arguments)
         except json.JSONDecodeError as exc:
             return f"Error: Invalid JSON arguments: {exc}"
+        if not isinstance(parsed_arguments, dict):
+            return "Error: Tool arguments must be a JSON object."
+        try:
+            parsed_arguments = _validate_tool_arguments(
+                method,
+                parsed_arguments,
+                allow_partial=True,
+            )
+        except ValueError as exc:
+            return f"Error: Invalid prefilled arguments: {exc}"
         record_id = deterministic_id("user_tool", discoverable_tool_name)
         self.db.user_discoverable_tools.data[record_id] = {
             "tool_name": discoverable_tool_name,
@@ -239,9 +385,14 @@ class SyntheticBankingTools(ToolKitBase):
             "status": "GIVEN",
         }
         tool_info = parse_discoverable_tool_docstring(method)
+        prefilled = json.dumps(parsed_arguments, indent=2, sort_keys=True)
         return (
             f"Tool given to user: {discoverable_tool_name}\n"
-            f"Description: {tool_info['description']}"
+            f"{format_discoverable_tool_for_agent(tool_info)}\n"
+            f"Prefilled arguments: {prefilled}\n\n"
+            "Tell the user to call `call_discoverable_user_tool` with "
+            f"discoverable_tool_name='{discoverable_tool_name}' and a JSON object "
+            "containing every required parameter shown above."
         )
 
     @is_tool(ToolType.GENERIC, mutates_state=True)
@@ -279,10 +430,13 @@ class SyntheticBankingTools(ToolKitBase):
             parsed_arguments = json.loads(arguments)
         except json.JSONDecodeError as exc:
             return f"Error: Invalid JSON arguments: {exc}"
+        if not isinstance(parsed_arguments, dict):
+            return "Error: Tool arguments must be a JSON object."
         method = self.get_discoverable_tools()[agent_tool_name]
         try:
-            result = method(**parsed_arguments)
-        except TypeError as exc:
+            validated_arguments = _validate_tool_arguments(method, parsed_arguments)
+            result = method(**validated_arguments)
+        except ValueError as exc:
             return f"Error: Invalid arguments for '{agent_tool_name}': {exc}"
         record_id = deterministic_id("agent_tool", agent_tool_name)
         self.db.agent_discoverable_tools.data[record_id] = {
@@ -565,13 +719,14 @@ class SyntheticBankingUserTools(ToolKitBase):
             parsed_arguments = json.loads(arguments)
         except json.JSONDecodeError as exc:
             return f"Error: Invalid JSON arguments: {exc}"
+        if not isinstance(parsed_arguments, dict):
+            return "Error: Tool arguments must be a JSON object."
         method = self.get_discoverable_tools()[discoverable_tool_name]
-        signature = inspect.signature(method)
         try:
-            signature.bind(**parsed_arguments)
-        except TypeError as exc:
+            validated_arguments = _validate_tool_arguments(method, parsed_arguments)
+        except ValueError as exc:
             return f"Error: Invalid arguments for '{discoverable_tool_name}': {exc}"
-        return method(**parsed_arguments)
+        return method(**validated_arguments)
 
     @is_discoverable_tool(ToolType.READ, mutates_state=True)
     def get_card_last_4_digits(self, credit_card_account_id: str) -> str:

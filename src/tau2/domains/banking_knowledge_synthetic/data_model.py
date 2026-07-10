@@ -33,6 +33,7 @@ class SyntheticBankingDB(DB):
         default_factory=DatabaseTable
     )
     debit_card_disputes: DatabaseTable = Field(default_factory=DatabaseTable)
+    debit_dispute_intake_outcomes: DatabaseTable = Field(default_factory=DatabaseTable)
     written_dispute_statements: DatabaseTable = Field(default_factory=DatabaseTable)
     user_discoverable_tools: DatabaseTable = Field(default_factory=DatabaseTable)
     user_discoverable_tool_calls: DatabaseTable = Field(default_factory=DatabaseTable)

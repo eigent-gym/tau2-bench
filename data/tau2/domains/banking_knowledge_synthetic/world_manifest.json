@@ -3,7 +3,7 @@
   "version": "v0",
   "fictional_brand": "Northstar Bank",
   "document_count": 91,
-  "tool_contract_count": 19,
+  "tool_contract_count": 20,
   "base_db_source_pack": "debit_card_reg_e",
   "generation_date": "2026-07-09",
   "source_repository": "eigent-gym/dategen_tau3_banking"

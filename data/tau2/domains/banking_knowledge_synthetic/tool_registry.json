@@ -166,6 +166,30 @@
     },
     {
       "arguments": [
+        "transaction_id",
+        "account_id",
+        "user_id",
+        "outcome",
+        "required_next_step"
+      ],
+      "caller": "assistant",
+      "db_table": "debit_dispute_intake_outcomes",
+      "kind": "WRITE",
+      "name": "record_debit_dispute_intake_outcome",
+      "optional_arguments": [
+        "transaction_status",
+        "contacted_merchant",
+        "current_open_disputes",
+        "maximum_open_disputes",
+        "notice_is_within_statement_window"
+      ],
+      "purpose": "Record a policy-grounded debit-dispute intake result when no dispute is filed.",
+      "requires_kb_unlock": false,
+      "source_pack": "debit_card_reg_e",
+      "visibility": "agent_initial"
+    },
+    {
+      "arguments": [
         "name",
         "user_id",
         "address",
@@ -238,6 +262,9 @@
       "visibility": "user_discoverable_after_assistant_grant"
     },
     {
+      "arguments": [
+        "card_id"
+      ],
       "caller": "user",
       "kind": "READ",
       "name": "get_debit_card_last_4_digits",
@@ -248,8 +275,13 @@
       "visibility": "user_discoverable_after_assistant_grant"
     },
     {
+      "arguments": [
+        "account_id",
+        "confirm_written_statement"
+      ],
       "caller": "user",
-      "kind": "READ",
+      "db_table": "written_dispute_statements",
+      "kind": "WRITE",
       "name": "provide_written_dispute_statement",
       "name_template": "provide_written_dispute_statement",
       "purpose": "User-side confirmation that the conversation can be used as the written statement for provisional-credit eligibility.",
