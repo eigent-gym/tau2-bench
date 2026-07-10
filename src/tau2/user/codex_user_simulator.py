@@ -52,14 +52,10 @@ CODEX_USER_RESPONSE_SCHEMA: dict[str, Any] = {
                 "type": "object",
                 "additionalProperties": False,
                 "properties": {
-                    "id": {"type": "string"},
                     "name": {"type": "string"},
                     "arguments": {
-                        "description": "JSON object of tool arguments.",
-                        "anyOf": [
-                            {"type": "object"},
-                            {"type": "string"},
-                        ],
+                        "type": "string",
+                        "description": "JSON-encoded object of tool arguments.",
                     },
                 },
                 "required": ["name", "arguments"],
@@ -157,7 +153,7 @@ class CodexUserSimulator(UserSimulator):
                 "Return only JSON matching this schema: "
                 '{"content": string|null, "tool_calls": array, "stop": boolean}.',
                 f"When the user is finished, set stop=true and include one of: {STOP}, {TRANSFER}, {OUT_OF_SCOPE}.",
-                "If you need to use a user-side tool, add it to tool_calls. The runtime will execute it after your turn.",
+                "If you need to use a user-side tool, add it to tool_calls and encode its arguments as a JSON object string. The runtime will execute it after your turn.",
                 "Do not wrap the JSON in Markdown.",
                 "<system_prompt>",
                 state.system_messages[0].content or "",
