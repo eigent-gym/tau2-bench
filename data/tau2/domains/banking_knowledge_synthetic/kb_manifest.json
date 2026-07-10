@@ -28,7 +28,12 @@
     {
       "covered_policy_fields": [
         "filing_rule",
-        "required_tool_arguments"
+        "required_tool_arguments",
+        "valid_dispute_categories",
+        "valid_transaction_types",
+        "valid_pin_compromised_values",
+        "valid_card_actions",
+        "date_format"
       ],
       "document_type": "internal_procedure",
       "id": "doc_bank_accounts_bank_accounts_(general)_003",
