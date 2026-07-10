@@ -101,9 +101,18 @@ def test_user_discoverable_tool_uses_same_database() -> None:
     grant_result = environment.make_tool_call(
         "give_discoverable_user_tool",
         discoverable_tool_name="get_card_last_4_digits",
+        arguments=json.dumps({"credit_card_account_id": account_id}),
     )
     assert "credit_card_account_id: string (required)" in grant_result
+    assert f'"credit_card_account_id": "{account_id}"' in grant_result
     assert "call_discoverable_user_tool" in grant_result
+    grant_record = next(
+        iter(environment.tools.db.user_discoverable_tools.data.values())
+    )
+    assert grant_record == {
+        "tool_name": "get_card_last_4_digits",
+        "status": "GIVEN",
+    }
     result = environment.make_tool_call(
         "call_discoverable_user_tool",
         requestor="user",

@@ -381,7 +381,6 @@ class SyntheticBankingTools(ToolKitBase):
         record_id = deterministic_id("user_tool", discoverable_tool_name)
         self.db.user_discoverable_tools.data[record_id] = {
             "tool_name": discoverable_tool_name,
-            "arguments": parsed_arguments,
             "status": "GIVEN",
         }
         tool_info = parse_discoverable_tool_docstring(method)
