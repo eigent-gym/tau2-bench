@@ -13,7 +13,7 @@
       "user agent returns text to the tested agent through the chat channel"
     ]
   },
-  "tool_count": 19,
+  "tool_count": 20,
   "tools": [
     {
       "arguments": [
@@ -166,30 +166,6 @@
     },
     {
       "arguments": [
-        "transaction_id",
-        "account_id",
-        "user_id",
-        "outcome",
-        "required_next_step"
-      ],
-      "caller": "assistant",
-      "db_table": "debit_dispute_intake_outcomes",
-      "kind": "WRITE",
-      "name": "record_debit_dispute_intake_outcome",
-      "optional_arguments": [
-        "transaction_status",
-        "contacted_merchant",
-        "current_open_disputes",
-        "maximum_open_disputes",
-        "notice_is_within_statement_window"
-      ],
-      "purpose": "Record a policy-grounded debit-dispute intake result when no dispute is filed.",
-      "requires_kb_unlock": false,
-      "source_pack": "debit_card_reg_e",
-      "visibility": "agent_initial"
-    },
-    {
-      "arguments": [
         "name",
         "user_id",
         "address",
@@ -213,6 +189,30 @@
       "name": "read_knowledge_document",
       "purpose": "Read a KB document returned by search.",
       "requires_kb_unlock": false,
+      "visibility": "agent_initial"
+    },
+    {
+      "arguments": [
+        "transaction_id",
+        "account_id",
+        "user_id",
+        "outcome",
+        "required_next_step"
+      ],
+      "caller": "assistant",
+      "db_table": "debit_dispute_intake_outcomes",
+      "kind": "WRITE",
+      "name": "record_debit_dispute_intake_outcome",
+      "optional_arguments": [
+        "transaction_status",
+        "contacted_merchant",
+        "current_open_disputes",
+        "maximum_open_disputes",
+        "notice_is_within_statement_window"
+      ],
+      "purpose": "Record a policy-grounded debit-dispute intake result when no dispute is filed.",
+      "requires_kb_unlock": false,
+      "source_pack": "debit_card_reg_e",
       "visibility": "agent_initial"
     },
     {

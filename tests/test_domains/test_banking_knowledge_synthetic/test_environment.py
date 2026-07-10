@@ -238,6 +238,7 @@ def test_machine_readable_tool_contract_matches_implemented_business_tools() -> 
     payload = json.loads(
         (SYNTHETIC_BANKING_DATA_DIR / "tool_registry.json").read_text(encoding="utf-8")
     )
+    assert payload["tool_count"] == len(payload["tools"])
     contracts = {tool["name"] for tool in payload["tools"]}
     agent_tools = set(environment.tools.tools)
     user_tools = set(environment.user_tools.tools)
